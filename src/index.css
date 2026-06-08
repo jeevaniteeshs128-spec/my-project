@@ -1,0 +1,23 @@
+@import 'tailwindcss';
+
+:root {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  color: #ffffff;
+  background: #0b1020;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #0b1020;
+  color: #ffffff;
+}
