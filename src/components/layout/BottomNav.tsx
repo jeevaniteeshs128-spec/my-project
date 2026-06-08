@@ -26,7 +26,7 @@ export function BottomNav() {
 
   return (
     <>
-      <div className='fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#081023]/96 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-md md:hidden'>
+      <div className='fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#081023]/96 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-md'>
         <div className='mx-auto grid max-w-[430px] grid-cols-5 items-center gap-1'>
           {items.slice(0, 2).map((item) => {
             const Icon = item.icon
@@ -62,7 +62,7 @@ export function BottomNav() {
       </div>
 
       {open ? (
-        <div className='fixed inset-0 z-40 bg-black/55 md:hidden' onClick={() => setOpen(false)} aria-hidden='true'>
+        <div className='fixed inset-0 z-40 bg-black/55' onClick={() => setOpen(false)} aria-hidden='true'>
           <div className='mx-auto flex h-full max-w-[430px] items-end px-3 pb-24' onClick={(event) => event.stopPropagation()}>
             <div className='w-full rounded-lg border border-white/10 bg-[#101827] p-3'>
               <div className='grid grid-cols-2 gap-2'>
