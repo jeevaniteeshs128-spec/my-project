@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { MapPin, Star } from 'lucide-react'
 
 import { MovieCard } from '@/components/shared/MovieCard'
-import { movies, reviews } from '@/data/mockData'
+import { getMedia, movies, reviews, series } from '@/data/mockData'
 
 const stats = [
   ['Films', '428'],
@@ -86,15 +86,24 @@ export function ProfilePage() {
           </section>
 
           <section>
+            <h2 className='text-base font-semibold text-white'>Favorite Series</h2>
+            <div className='mt-3 grid grid-cols-3 gap-3 sm:grid-cols-4'>
+              {series.map((item) => (
+                <MovieCard key={item.id} movie={item} to={`/series/${item.id}`} compact />
+              ))}
+            </div>
+          </section>
+
+          <section>
             <h2 className='text-base font-semibold text-white'>Reviews</h2>
             <div className='mt-3 space-y-3'>
               {reviews.slice(0, 3).map((review) => {
-                const movie = movies.find((item) => item.id === review.movieId) ?? movies[0]
+                const media = getMedia(review.mediaId) ?? movies[0]
                 return (
                   <article key={review.id} className='grid grid-cols-[72px_1fr] gap-3 rounded-lg border border-white/10 bg-[#101827] p-3'>
-                    <img src={movie.poster} alt={movie.title} className='aspect-[2/3] w-full rounded-md object-cover' />
+                    <img src={media.poster} alt={media.title} className='aspect-[2/3] w-full rounded-md object-cover' />
                     <div className='min-w-0'>
-                      <p className='truncate text-sm font-semibold text-white'>{movie.title}</p>
+                      <p className='truncate text-sm font-semibold text-white'>{media.title}</p>
                       <p className='mt-1 inline-flex items-center gap-1 text-xs text-[#35d07f]'><Star className='h-3 w-3 fill-current' /> {review.rating.toFixed(1)}</p>
                       <p className='mt-2 line-clamp-2 text-sm leading-5 text-slate-300'>{review.text}</p>
                     </div>

@@ -10,7 +10,7 @@ import { communities, meetups, movies, reviews } from '@/data/mockData'
 export function MovieDetailsPage() {
   const { movieId = '' } = useParams()
   const movie = useMemo(() => movies.find((item) => item.id === movieId) ?? movies[0], [movieId])
-  const community = communities.find((item) => item.movieId === movie.id)
+  const community = communities.find((item) => item.mediaId === movie.id)
 
   return (
     <div className='space-y-6'>
@@ -46,7 +46,7 @@ export function MovieDetailsPage() {
 
         <TabsContent value='reviews'>
           <div className='rounded-lg border border-white/10 bg-[#101827] px-4'>
-            {reviews.filter((review) => review.movieId === movie.id).concat(reviews.slice(0, 2)).map((review) => (
+            {reviews.filter((review) => review.mediaId === movie.id).concat(reviews.slice(0, 2)).map((review) => (
               <ReviewCard key={`${movie.id}-${review.id}`} review={review} />
             ))}
           </div>

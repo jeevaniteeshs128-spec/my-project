@@ -6,6 +6,8 @@ export type Quote = {
   author: string
 }
 
+export type MediaKind = 'movie' | 'series'
+
 export type Movie = {
   id: string
   title: string
@@ -13,19 +15,66 @@ export type Movie = {
   backdrop: string
   rating: number
   year: number
+  runtime: string
   director: string
   cast: string[]
   actress: string[]
+  writer: string
+  musicDirector: string
   singer: string
   genre: string
+  genres: string[]
   language: string
+  country: string
+  productionHouse: string
+  streaming: string[]
   popularity: number
   reviewSnippet: string
+  countdown: string
+}
+
+export type Episode = {
+  id: string
+  title: string
+  number: number
+  runtime: string
+  rating: number
+  still: string
+  synopsis: string
+}
+
+export type Season = {
+  id: string
+  number: number
+  title: string
+  rating: number
+  episodes: Episode[]
+}
+
+export type Series = {
+  id: string
+  title: string
+  poster: string
+  backdrop: string
+  rating: number
+  year: number
+  status: string
+  creator: string
+  genres: string[]
+  language: string
+  country: string
+  productionHouse: string
+  streaming: string[]
+  popularity: number
+  progress: number
+  reviewSnippet: string
+  seasons: Season[]
 }
 
 export type Review = {
   id: string
-  movieId: string
+  mediaId: string
+  mediaKind: MediaKind
   user: string
   avatar: string
   rating: number
@@ -33,14 +82,28 @@ export type Review = {
   spoiler: boolean
   likes: number
   comments: number
-  kind: 'short' | 'long'
+  bookmarks: number
+  kind: 'text' | 'video'
+  filter: 'newest' | 'popular' | 'friends'
+}
+
+export type Activity = {
+  id: string
+  user: string
+  avatar: string
+  action: string
+  mediaId: string
+  mediaKind: MediaKind
+  rating?: number
+  snippet: string
 }
 
 export type Meetup = {
   id: string
   title: string
+  type: 'movie meetup' | 'series meetup' | 'watch party'
   mode: 'online' | 'offline'
-  cadence: 'monthly' | 'quarterly'
+  cadence: 'weekly' | 'monthly' | 'quarterly'
   date: string
   registrations: number
   communityOnly: boolean
@@ -50,10 +113,25 @@ export type Community = {
   id: string
   name: string
   slug: string
-  movieId: string
+  mediaId: string
+  mediaKind: MediaKind
   members: number
   description: string
+  pinned: string
+  poll: string
   threads: string[]
+}
+
+export type UserProfile = {
+  id: string
+  name: string
+  handle: string
+  avatar: string
+  banner: string
+  bio: string
+  favorites: string[]
+  favoriteSeries: string[]
+  favoriteDirectors: string[]
 }
 
 export type NotificationItem = {
@@ -66,6 +144,7 @@ export type NotificationItem = {
 export type Message = {
   id: string
   from: string
+  room: string
   text: string
   online: boolean
   typing?: boolean

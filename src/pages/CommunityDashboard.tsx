@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { MessageCircle, ShieldAlert, Vote } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
-import { communities, movies } from '@/data/mockData'
+import { communities, getMedia } from '@/data/mockData'
 
 const tabs = ['Reviews', 'Discussions', 'Polls', 'Fan theories', 'Spoilers']
 
@@ -16,7 +16,8 @@ export function CommunityDashboard() {
 
       <div className='grid gap-4 md:grid-cols-2 xl:grid-cols-3'>
         {communities.map((community) => {
-          const movie = movies.find((item) => item.id === community.movieId) ?? movies[0]
+          const media = getMedia(community.mediaId)
+          if (!media) return null
           return (
             <Link
               key={community.id}
@@ -24,9 +25,9 @@ export function CommunityDashboard() {
               className='group overflow-hidden rounded-lg border border-white/10 bg-[#101827] transition-colors duration-200 hover:border-[#35d07f]/70'
             >
               <div className='relative h-40'>
-                <img src={movie.backdrop} alt={movie.title} className='absolute inset-0 h-full w-full object-cover' />
+                <img src={media.backdrop} alt={media.title} className='absolute inset-0 h-full w-full object-cover' />
                 <div className='absolute inset-0 bg-gradient-to-r from-[#081023]/95 via-[#081023]/60 to-transparent' />
-                <img src={movie.poster} alt={movie.title} className='absolute bottom-3 left-3 h-32 w-20 rounded-md border border-white/15 object-cover' />
+                <img src={media.poster} alt={media.title} className='absolute bottom-3 left-3 h-32 w-20 rounded-md border border-white/15 object-cover' />
               </div>
               <div className='p-3 pl-[112px] sm:pl-3'>
                 <div className='flex flex-wrap items-center gap-2'>

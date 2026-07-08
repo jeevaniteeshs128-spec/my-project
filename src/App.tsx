@@ -14,6 +14,9 @@ import { MovieDetailsPage } from '@/pages/MovieDetailsPage'
 import { MoviesPage } from '@/pages/MoviesPage'
 import { NotificationsPage } from '@/pages/NotificationsPage'
 import { ProfilePage } from '@/pages/ProfilePage'
+import { SearchPage } from '@/pages/SearchPage'
+import { SeriesDetailsPage } from '@/pages/SeriesDetailsPage'
+import { SeriesPage } from '@/pages/SeriesPage'
 import { SettingsPage } from '@/pages/SettingsPage'
 import { WatchlistPage } from '@/pages/WatchlistPage'
 import { ReviewFeedPage } from '@/pages/ReviewFeedPage'
@@ -40,6 +43,9 @@ function AnimatedRoutes() {
           <Route path='/dashboard/community' element={<Navigate to='/communities' replace />} />
           <Route path='/movies' element={<MoviesPage />} />
           <Route path='/movie/:movieId' element={<MovieDetailsPage />} />
+          <Route path='/series' element={<SeriesPage />} />
+          <Route path='/series/:seriesId' element={<SeriesDetailsPage />} />
+          <Route path='/search' element={<SearchPage />} />
           <Route path='/community/:slug' element={<MovieCommunityPage />} />
           <Route path='/communities' element={<CommunityDashboard />} />
           <Route path='/diary' element={<DiaryPage />} />

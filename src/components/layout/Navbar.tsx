@@ -1,21 +1,21 @@
-import { Bell, Clapperboard, MessageCircle, Search, UserRound } from 'lucide-react'
+import { Bell, Clapperboard, MessageCircle, Search, Tv, UserRound } from 'lucide-react'
 import { Link, NavLink } from 'react-router-dom'
 
 import { cn } from '@/lib/utils'
 
 const navItems = [
+  { to: '/', label: 'Home' },
   { to: '/movies', label: 'Movies' },
-  { to: '/reviews', label: 'Reviews' },
-  { to: '/diary', label: 'Diary' },
-  { to: '/watchlist', label: 'Lists' },
+  { to: '/series', label: 'Series' },
   { to: '/communities', label: 'Communities' },
+  { to: '/chat', label: 'Chats' },
   { to: '/meetups', label: 'Meetups' },
-  { to: '/chat', label: 'Chat' },
+  { to: '/search', label: 'Search' },
 ]
 
 export function Navbar() {
   return (
-    <header className='sticky top-0 z-40 hidden h-[72px] border-b border-white/10 bg-[rgba(8,15,35,.92)] backdrop-blur-xl md:block'>
+    <header className='sticky top-0 z-40 hidden h-[72px] border-b border-white/10 bg-black/70 backdrop-blur-xl md:block'>
       <div className='mx-auto flex h-full max-w-7xl items-center gap-5 px-4 lg:px-6'>
         <Link to='/' className='inline-flex shrink-0 items-center gap-2 text-white'>
           <Clapperboard className='h-5 w-5 text-[#35d07f]' />
@@ -43,11 +43,14 @@ export function Navbar() {
           <Search className='h-4 w-4' />
           <input
             type='search'
-            placeholder='Search films, reviews, people'
+            placeholder='Search movies, series, people'
             className='min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-slate-500'
           />
         </label>
 
+        <Link to='/series' className='grid h-10 w-10 place-items-center rounded-md border border-white/10 bg-white/6 text-slate-200 transition-colors duration-200 hover:bg-white/10'>
+          <Tv className='h-4 w-4' />
+        </Link>
         <Link to='/notifications' className='grid h-10 w-10 place-items-center rounded-md border border-white/10 bg-white/6 text-slate-200 transition-colors duration-200 hover:bg-white/10'>
           <Bell className='h-4 w-4' />
         </Link>

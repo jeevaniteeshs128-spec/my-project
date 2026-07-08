@@ -1,23 +1,24 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Bookmark, CalendarDays, CirclePlus, Film, Home, MessageCircle, NotebookPen, StarHalf, UserRound, Users } from 'lucide-react'
+import { Bookmark, CirclePlus, Film, Home, MessageCircle, NotebookPen, Star, Tv, UserRound, Users } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
 const items = [
   { to: '/', label: 'Home', icon: Home },
   { to: '/movies', label: 'Movies', icon: Film },
-  { to: '/meetups', label: 'Meetups', icon: CalendarDays },
+  { to: '/series', label: 'Series', icon: Tv },
+  { to: '/communities', label: 'Community', icon: Users },
   { to: '/profile', label: 'Profile', icon: UserRound },
 ]
 
 const quickLinks = [
-  { to: '/reviews', label: 'Reviews', icon: StarHalf },
-  { to: '/communities', label: 'Communities', icon: Users },
-  { to: '/diary', label: 'Diary', icon: NotebookPen },
+  { to: '/diary', label: 'Log Movie', icon: Film },
+  { to: '/series', label: 'Log Episode', icon: Tv },
+  { to: '/reviews', label: 'Write Review', icon: NotebookPen },
   { to: '/watchlist', label: 'Watchlist', icon: Bookmark },
-  { to: '/chat', label: 'Chat', icon: MessageCircle },
-  { to: '/director-feedback', label: 'Director feedback', icon: Film },
+  { to: '/chat', label: 'Chats', icon: MessageCircle },
+  { to: '/search', label: 'Search', icon: Star },
 ]
 
 export function BottomNav() {
@@ -26,7 +27,7 @@ export function BottomNav() {
 
   return (
     <>
-      <div className='fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#081023]/96 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-md'>
+      <div className='fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-black/88 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl md:hidden'>
         <div className='mx-auto grid max-w-[430px] grid-cols-5 items-center gap-1'>
           {items.slice(0, 2).map((item) => {
             const Icon = item.icon
