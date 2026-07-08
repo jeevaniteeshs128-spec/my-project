@@ -6,7 +6,7 @@ export type Quote = {
   author: string
 }
 
-export type FeedbackBadge = 'Verified Critic' | 'Premium Critic' | 'Filmmaker' | 'Top Reviewer' | 'Community Curator' | 'Full Pace Elite'
+export type FeedbackBadge = 'Verified Critic' | 'Premium Critic' | 'Filmmaker' | 'Top Reviewer' | 'Community Curator' | 'Full Pace Elite' | 'Verified Reviewer' | 'Official Critic'
 
 export type FeedbackCategoryRatings = {
   storytelling: number
@@ -25,6 +25,32 @@ export type DirectorFeedbackReply = {
   user: string
   text: string
   time: string
+}
+
+export type CreatorFeedbackEntry = {
+  id: string
+  creatorSlug: string
+  creatorName: string
+  creatorRole: string
+  user: string
+  handle: string
+  avatar: string
+  reviewerRole: string
+  badges: FeedbackBadge[]
+  verified: boolean
+  pinned: boolean
+  overallRating: number
+  careerRating: number
+  text: string
+  videoUrl?: string
+  favoriteWorks: string[]
+  favoriteEra: string
+  improvementSuggestions: string
+  appreciation: string
+  tags: string[]
+  helpfulCount: number
+  replies: DirectorFeedbackReply[]
+  timestamp: string
 }
 
 export type DirectorFeedbackEntry = {
@@ -57,6 +83,7 @@ export type CurrentViewer = {
   avatar: string
   role: string
   badges: FeedbackBadge[]
+  canSubmitCreatorFeedback: boolean
   canSubmitDirectorFeedback: boolean
   verifiedDirector: boolean
 }

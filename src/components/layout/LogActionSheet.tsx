@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { CalendarDays, Clapperboard, Film, List, MessageCircleMore, NotebookPen, PlaySquare, Tv } from 'lucide-react'
+import { CalendarDays, Clapperboard, Film, List, MessageCircleMore, NotebookPen, PlaySquare, Sparkles, Tv } from 'lucide-react'
 import { createContext, useContext, useMemo, useState, type PropsWithChildren } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -15,7 +15,9 @@ const logActions: LogAction[] = [
   { label: 'Log Movie', icon: Film, to: '/diary' },
   { label: 'Log Series', icon: Tv, to: '/series' },
   { label: 'Write Review', icon: NotebookPen, to: '/reviews' },
-  { label: 'Record Video Review', icon: PlaySquare, to: '/reviews' },
+  { label: 'Video Review', icon: PlaySquare, to: '/reviews' },
+  { label: 'Creator Feedback', icon: Sparkles, to: '/creator-feedback' },
+  { label: 'Director Feedback', icon: Sparkles, to: '/director-feedback' },
   { label: 'Create List', icon: List, to: '/watchlist' },
   { label: 'Start Discussion', icon: MessageCircleMore, to: '/communities' },
   { label: 'Create Meetup', icon: CalendarDays, to: '/meetups' },

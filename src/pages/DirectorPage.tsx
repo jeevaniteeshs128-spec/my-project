@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 
+import { CreatorFeedbackSection } from '@/components/shared/CreatorFeedbackSection'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { directors } from '@/data/mockData'
@@ -88,6 +89,11 @@ export function DirectorPage() {
             </Link>
           ))}
         </div>
+      </section>
+
+      <section className='space-y-3'>
+        <h2 className='text-lg font-semibold text-white'>Creator Feedback</h2>
+        <CreatorFeedbackSection creatorSlug={directorSlug} creatorName={name} creatorRole='Director' />
       </section>
 
       <section className='space-y-3'>

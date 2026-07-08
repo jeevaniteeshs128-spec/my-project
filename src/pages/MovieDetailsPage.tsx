@@ -14,6 +14,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useMemo, useState, type ReactNode } from 'react'
 
 import { DirectorFeedbackSection } from '@/components/shared/DirectorFeedbackSection'
+import { CreatorFeedbackSection } from '@/components/shared/CreatorFeedbackSection'
 import { MediaRail } from '@/components/shared/MediaRail'
 import { MediaReviewsSection } from '@/components/shared/MediaReviewsSection'
 import { useLogActionSheet } from '@/components/layout/LogActionSheet'
@@ -132,6 +133,7 @@ export function MovieDetailsPage() {
           <TabsTrigger value='reviews'>Reviews</TabsTrigger>
           <TabsTrigger value='lists'>Lists</TabsTrigger>
           <TabsTrigger value='community'>Community</TabsTrigger>
+          <TabsTrigger value='director-feedback'>Director Feedback</TabsTrigger>
           <TabsTrigger value='meetups'>Meetups</TabsTrigger>
           <TabsTrigger value='creator-feedback'>Creator Feedback</TabsTrigger>
         </TabsList>
@@ -249,6 +251,10 @@ export function MovieDetailsPage() {
           ))}
         </TabsContent>
 
+        <TabsContent value='director-feedback'>
+          <DirectorFeedbackSection mediaId={movie.id} mediaKind='movie' directorName={movie.director} />
+        </TabsContent>
+
         <TabsContent value='meetups' className='grid gap-3 sm:grid-cols-3'>
           {meetups.map((meetup) => (
             <Link key={meetup.id} to='/meetups' className='rounded-[1.25rem] border border-white/10 bg-[#162033] p-4 transition-colors duration-200 hover:border-[#7C3AED]/60'>
@@ -259,7 +265,7 @@ export function MovieDetailsPage() {
         </TabsContent>
 
         <TabsContent value='creator-feedback'>
-          <DirectorFeedbackSection mediaId={movie.id} mediaKind='movie' directorName={movie.director} />
+          <CreatorFeedbackSection creatorSlug={slugify(movie.director)} creatorName={movie.director} creatorRole='Director' />
         </TabsContent>
       </Tabs>
 

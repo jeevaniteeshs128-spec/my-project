@@ -3,6 +3,7 @@ import type {
   AiRecommendation,
   ActorProfile,
   Community,
+  CreatorFeedbackEntry,
   CurrentViewer,
   DirectorProfile,
   DirectorDashboard,
@@ -294,10 +295,63 @@ export const currentViewer: CurrentViewer = {
   handle: 'cinema_ari',
   avatar: 'AR',
   role: 'Top Reviewer',
-  badges: ['Verified Critic', 'Premium Critic', 'Top Reviewer', 'Community Curator'],
+  badges: ['Verified Critic', 'Premium Critic', 'Top Reviewer', 'Community Curator', 'Official Critic'],
+  canSubmitCreatorFeedback: true,
   canSubmitDirectorFeedback: true,
   verifiedDirector: false,
 }
+
+export const creatorFeedbackEntries: CreatorFeedbackEntry[] = [
+  {
+    id: 'cf-1',
+    creatorSlug: 'christopher-nolan',
+    creatorName: 'Christopher Nolan',
+    creatorRole: 'Director',
+    user: 'cinema_ari',
+    handle: '@cinema_ari',
+    avatar: 'AR',
+    reviewerRole: 'Official Critic',
+    badges: ['Official Critic', 'Premium Critic', 'Verified Critic'],
+    verified: true,
+    pinned: true,
+    overallRating: 4.9,
+    careerRating: 4.9,
+    text: 'Nolan has built a career on making impossible ideas emotionally legible. The strongest part of his work remains the balance between spectacle and human stakes.',
+    videoUrl: 'https://example.com/nolan-career-review',
+    favoriteWorks: ['Interstellar', 'Inception', 'Oppenheimer'],
+    favoriteEra: 'Blockbuster Era',
+    improvementSuggestions: 'More room for intimate character beats between major conceptual set pieces.',
+    appreciation: 'Visionary, technical master, master storyteller',
+    tags: ['Visionary', 'Technical Master', 'Master Storyteller', 'Innovative'],
+    helpfulCount: 312,
+    replies: [{ id: 'crep-1', user: 'Community Editor', text: 'Pinned for its balance of career perspective and specific examples.', time: '1h ago' }],
+    timestamp: 'Pinned 2h ago',
+  },
+  {
+    id: 'cf-2',
+    creatorSlug: 'christopher-nolan',
+    creatorName: 'Christopher Nolan',
+    creatorRole: 'Director',
+    user: 'frame_dev',
+    handle: '@frame_dev',
+    avatar: 'FD',
+    reviewerRole: 'Verified Reviewer',
+    badges: ['Verified Reviewer', 'Premium Critic'],
+    verified: true,
+    pinned: false,
+    overallRating: 4.7,
+    careerRating: 4.8,
+    text: 'His career feels increasingly defined by a rare ability to make structural ambition feel personal rather than cold.',
+    favoriteWorks: ['Interstellar', 'The Dark Knight'],
+    favoriteEra: 'Early 2000s',
+    improvementSuggestions: 'A slightly broader tonal range in future projects would keep the work from feeling overly precise.',
+    appreciation: 'Commercial genius, inventive, deeply immersive',
+    tags: ['Commercial Genius', 'Innovative', 'Creative'],
+    helpfulCount: 128,
+    replies: [],
+    timestamp: '4h ago',
+  },
+]
 
 export const directorFeedbackEntries: DirectorFeedbackEntry[] = [
   {
@@ -659,6 +713,12 @@ export function getDirector(slug: string) {
 export function getDirectorFeedback(mediaId: string, mediaKind: 'movie' | 'series') {
   return directorFeedbackEntries
     .filter((entry) => entry.mediaId === mediaId && entry.mediaKind === mediaKind)
+    .sort((left, right) => Number(right.pinned) - Number(left.pinned) || right.helpfulCount - left.helpfulCount)
+}
+
+export function getCreatorFeedback(creatorSlug: string) {
+  return creatorFeedbackEntries
+    .filter((entry) => entry.creatorSlug === creatorSlug)
     .sort((left, right) => Number(right.pinned) - Number(left.pinned) || right.helpfulCount - left.helpfulCount)
 }
 

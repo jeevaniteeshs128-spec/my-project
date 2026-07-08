@@ -7,6 +7,7 @@ import { DirectorPage } from '@/pages/DirectorPage'
 import { ActorPage } from '@/pages/ActorPage'
 import { CommunityDashboard } from '@/pages/CommunityDashboard'
 import { DiaryPage } from '@/pages/DiaryPage'
+import { CreatorFeedbackPage } from '@/pages/CreatorFeedbackPage'
 import { DirectorFeedbackPage } from '@/pages/DirectorFeedbackPage'
 import { LandingPage } from '@/pages/LandingPage'
 import { LoginPage } from '@/pages/LoginPage'
@@ -41,8 +42,8 @@ function AnimatedRoutes() {
           <Route path='/reviews' element={<ReviewFeedPage />} />
           <Route path='/dashboard/reviewer' element={<Navigate to='/reviews' replace />} />
           <Route path='/dashboard/director' element={<Navigate to='/creator-feedback' replace />} />
-          <Route path='/director-feedback' element={<Navigate to='/creator-feedback' replace />} />
-          <Route path='/creator-feedback' element={<DirectorFeedbackPage />} />
+          <Route path='/creator-feedback' element={<CreatorFeedbackPage />} />
+          <Route path='/director-feedback' element={<DirectorFeedbackPage />} />
           <Route path='/dashboard/community' element={<Navigate to='/communities' replace />} />
           <Route path='/movies' element={<MoviesPage />} />
           <Route path='/movie/:movieId' element={<MovieDetailsPage />} />
