@@ -74,14 +74,99 @@ export function SeriesDetailsPage() {
         <TabsList className='w-full max-w-full overflow-x-auto'>
           <TabsTrigger value='reviews'>Reviews</TabsTrigger>
           <TabsTrigger value='lists'>Lists</TabsTrigger>
-          <TabsTrigger value='activity'>Activity</TabsTrigger>
           <TabsTrigger value='community'>Community</TabsTrigger>
-          <TabsTrigger value='director-feedback'>Director Feedback</TabsTrigger>
           <TabsTrigger value='meetups'>Meetups</TabsTrigger>
+          <TabsTrigger value='creator-feedback'>Creator Feedback</TabsTrigger>
         </TabsList>
 
-        <TabsContent value='reviews'>
+        <TabsContent value='reviews' className='space-y-4'>
           <MediaReviewsSection mediaId={show.id} mediaKind='series' />
+
+          <section className='grid gap-4 lg:grid-cols-2 xl:grid-cols-4'>
+            <div className='rounded-[1.5rem] border border-white/10 bg-white/[0.055] p-4 backdrop-blur'>
+              <p className='text-xs uppercase tracking-[0.2em] text-slate-400'>Overall Series Rating</p>
+              <p className='mt-2 text-3xl font-semibold text-white'>{show.rating.toFixed(1)}</p>
+              <p className='mt-1 text-sm text-slate-400'>Audience grade for the full series.</p>
+            </div>
+            <div className='rounded-[1.5rem] border border-white/10 bg-white/[0.055] p-4 backdrop-blur'>
+              <p className='text-xs uppercase tracking-[0.2em] text-slate-400'>Season Rating</p>
+              <p className='mt-2 text-3xl font-semibold text-white'>{firstSeason.rating.toFixed(1)}</p>
+              <p className='mt-1 text-sm text-slate-400'>Current season momentum and quality.</p>
+            </div>
+            <div className='rounded-[1.5rem] border border-white/10 bg-white/[0.055] p-4 backdrop-blur'>
+              <p className='text-xs uppercase tracking-[0.2em] text-slate-400'>Episode Rating</p>
+              <p className='mt-2 text-3xl font-semibold text-white'>{firstSeason.episodes[0]?.rating.toFixed(1) ?? '4.0'}</p>
+              <p className='mt-1 text-sm text-slate-400'>Latest episode-level sentiment.</p>
+            </div>
+            <div className='rounded-[1.5rem] border border-white/10 bg-white/[0.055] p-4 backdrop-blur'>
+              <p className='text-xs uppercase tracking-[0.2em] text-slate-400'>Series Review</p>
+              <p className='mt-2 text-sm leading-6 text-slate-200'>{show.reviewSnippet}</p>
+            </div>
+          </section>
+
+          <section className='grid gap-4 lg:grid-cols-[1fr_.9fr]'>
+            <div className='space-y-4 rounded-[1.5rem] border border-white/10 bg-white/[0.055] p-4 backdrop-blur'>
+              <div>
+                <h3 className='text-lg font-semibold text-white'>Season Review</h3>
+                <p className='text-sm text-slate-400'>One card for the current season and its tonal direction.</p>
+              </div>
+              <div className='rounded-2xl border border-white/10 bg-white/6 p-3 text-sm leading-6 text-slate-200'>
+                Season {firstSeason.number} feels deliberate and complete, with its own emotional arc and episode structure.
+              </div>
+              <div>
+                <h3 className='text-lg font-semibold text-white'>Episode Review</h3>
+                <p className='text-sm text-slate-400'>Episode-by-episode notes stay within the same premium system.</p>
+              </div>
+              <div className='rounded-2xl border border-white/10 bg-white/6 p-3 text-sm leading-6 text-slate-200'>
+                {firstSeason.episodes[0]?.synopsis ?? 'Episode discussion and review notes are attached to the current season.'}
+              </div>
+            </div>
+
+            <div className='space-y-4'>
+              <div className='rounded-[1.5rem] border border-white/10 bg-white/[0.055] p-4 backdrop-blur'>
+                <p className='text-xs uppercase tracking-[0.2em] text-slate-400'>Text Review</p>
+                <p className='mt-2 text-sm leading-6 text-slate-200'>
+                  Layered commentary from the community stays concise, respectful, and easy to scan.
+                </p>
+              </div>
+              <div className='rounded-[1.5rem] border border-white/10 bg-white/[0.055] p-4 backdrop-blur'>
+                <p className='text-xs uppercase tracking-[0.2em] text-slate-400'>Video Review</p>
+                <p className='mt-2 text-sm leading-6 text-slate-200'>
+                  Video notes can be attached privately through Creator Feedback for deeper scene-level breakdowns.
+                </p>
+              </div>
+              <div className='rounded-[1.5rem] border border-white/10 bg-white/[0.055] p-4 backdrop-blur'>
+                <p className='text-xs uppercase tracking-[0.2em] text-slate-400'>AI Recommendations</p>
+                <p className='mt-2 text-sm leading-6 text-slate-200'>{aiPick.headline}</p>
+              </div>
+            </div>
+          </section>
+
+          <section className='grid gap-4 lg:grid-cols-[1fr_.9fr]'>
+            <Card>
+              <CardHeader>
+                <CardTitle>Similar Series</CardTitle>
+                <CardDescription>Adjacent series with a similar tone, scale, or storytelling rhythm.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <MediaRail title='' items={recommendedSeries} kind='series' />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>AI Recommendations</CardTitle>
+                <CardDescription>Reasoned suggestions from the current title’s affinity graph.</CardDescription>
+              </CardHeader>
+              <CardContent className='space-y-3'>
+                {aiPick.rationale.map((item) => (
+                  <div key={item} className='rounded-2xl border border-[#22D3EE]/20 bg-[#22D3EE]/[0.045] p-3 text-sm text-slate-100'>
+                    {item}
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </section>
         </TabsContent>
 
         <TabsContent value='lists' className='grid gap-3 sm:grid-cols-3'>
@@ -90,19 +175,6 @@ export function SeriesDetailsPage() {
               <p className='text-sm font-semibold text-white'>{list}</p>
               <p className='mt-1 text-xs text-slate-400'>12 series</p>
             </Link>
-          ))}
-        </TabsContent>
-
-        <TabsContent value='activity' className='space-y-2'>
-          {show.seasons.map((season) => (
-            <article key={season.id} className='grid grid-cols-[64px_1fr] gap-3 rounded-2xl border border-white/10 bg-white/[0.055] p-3 backdrop-blur'>
-              <div className='grid h-16 w-12 place-items-center rounded-xl border border-white/10 bg-white/6 text-sm font-semibold text-white'>S{season.number}</div>
-              <div className='min-w-0'>
-                <p className='truncate text-sm font-semibold text-white'>Season {season.number}: {season.title}</p>
-                <p className='text-xs text-slate-400'>{season.episodes.length} episodes logged</p>
-                <p className='mt-2 line-clamp-2 text-sm leading-6 text-slate-200'>Completion tracking and episode-level notes are available in the main series page below.</p>
-              </div>
-            </article>
           ))}
         </TabsContent>
 
@@ -121,10 +193,6 @@ export function SeriesDetailsPage() {
           ))}
         </TabsContent>
 
-        <TabsContent value='director-feedback'>
-          <DirectorFeedbackSection mediaId={show.id} mediaKind='series' directorName={show.creator} />
-        </TabsContent>
-
         <TabsContent value='meetups' className='grid gap-3 sm:grid-cols-3'>
           {meetups.map((meetup) => (
             <Link key={meetup.id} to='/meetups' className='rounded-[1.25rem] border border-white/10 bg-[#162033] p-4 transition-colors duration-200 hover:border-[#7C3AED]/60'>
@@ -132,6 +200,10 @@ export function SeriesDetailsPage() {
               <p className='mt-1 text-xs text-slate-400'>{meetup.mode} - {meetup.cadence}</p>
             </Link>
           ))}
+        </TabsContent>
+
+        <TabsContent value='creator-feedback'>
+          <DirectorFeedbackSection mediaId={show.id} mediaKind='series' directorName={show.creator} />
         </TabsContent>
       </Tabs>
 

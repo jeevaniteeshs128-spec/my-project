@@ -294,7 +294,7 @@ export const currentViewer: CurrentViewer = {
   handle: 'cinema_ari',
   avatar: 'AR',
   role: 'Top Reviewer',
-  badges: ['Verified Critic', 'Top Reviewer', 'Community Curator'],
+  badges: ['Verified Critic', 'Premium Critic', 'Top Reviewer', 'Community Curator'],
   canSubmitDirectorFeedback: true,
   verifiedDirector: false,
 }

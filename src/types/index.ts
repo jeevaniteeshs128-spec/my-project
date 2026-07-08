@@ -6,7 +6,7 @@ export type Quote = {
   author: string
 }
 
-export type FeedbackBadge = 'Verified Critic' | 'Filmmaker' | 'Top Reviewer' | 'Community Curator' | 'Full Pace Elite'
+export type FeedbackBadge = 'Verified Critic' | 'Premium Critic' | 'Filmmaker' | 'Top Reviewer' | 'Community Curator' | 'Full Pace Elite'
 
 export type FeedbackCategoryRatings = {
   storytelling: number

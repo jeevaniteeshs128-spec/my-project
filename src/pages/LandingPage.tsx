@@ -79,14 +79,14 @@ export function LandingPage() {
 
       <section className='grid gap-4 rounded-[1.75rem] border border-[#7C3AED]/20 bg-[#7C3AED]/[0.06] p-4 shadow-[0_0_40px_rgba(124,58,237,.08)] md:grid-cols-[1fr_auto] md:items-center'>
         <div>
-          <p className='text-xs uppercase tracking-[0.22em] text-[#E9D5FF]'>Verified filmmaker feedback</p>
-          <h2 className='mt-2 text-2xl font-semibold text-white'>Open the Director Feedback dashboard</h2>
+          <p className='text-xs uppercase tracking-[0.22em] text-[#E9D5FF]'>Private critic workflow</p>
+          <h2 className='mt-2 text-2xl font-semibold text-white'>Open the Creator Feedback dashboard</h2>
           <p className='mt-2 max-w-2xl text-sm leading-6 text-slate-300'>
-            Read curated constructive notes and open the director dashboard from one place. The route is also available from the top navigation.
+            Read private submissions from verified Premium Critics and open the creator dashboard from one place. The route is also available from the top navigation.
           </p>
         </div>
-        <Link to='/director-feedback' className='inline-flex h-11 items-center justify-center rounded-full bg-gradient-to-r from-[#6D28D9] to-[#9333EA] px-5 text-sm font-semibold text-white shadow-[0_18px_44px_rgba(124,58,237,.32)] transition hover:brightness-110'>
-          Go to Director Feedback
+        <Link to='/creator-feedback' className='inline-flex h-11 items-center justify-center rounded-full bg-gradient-to-r from-[#6D28D9] to-[#9333EA] px-5 text-sm font-semibold text-white shadow-[0_18px_44px_rgba(124,58,237,.32)] transition hover:brightness-110'>
+          Go to Creator Feedback
         </Link>
       </section>
 

@@ -13,7 +13,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   aiRecommendations,
-  activities,
   communities,
   directors,
   getActor,
@@ -97,18 +96,121 @@ export function MovieDetailsPage() {
         </div>
       </motion.section>
 
-      <Tabs defaultValue='reviews' className='space-y-4'>
+      <div className='fixed inset-x-3 bottom-28 z-40 mx-auto max-w-[1180px] md:right-6 md:left-auto md:bottom-6 md:w-[360px]'>
+        <div className='grid grid-cols-3 gap-2 rounded-[1.75rem] border border-white/10 bg-[#081120]/72 p-3 shadow-[0_24px_80px_rgba(0,0,0,.4)] backdrop-blur-2xl md:grid-cols-1'>
+          <div className='grid grid-cols-3 gap-2 md:grid-cols-1'>
+            <ActionButton onClick={openLogSheet}><Star className='h-4 w-4 text-[#F5B041]' /> Rate</ActionButton>
+            <ActionButton onClick={openLogSheet}><PenSquare className='h-4 w-4' /> Log</ActionButton>
+            <ActionButton onClick={openLogSheet}><Play className='h-4 w-4' /> Text Review</ActionButton>
+            <ActionButton onClick={openLogSheet}><Play className='h-4 w-4' /> Video Review</ActionButton>
+            <ActionButton active={watchlisted} onClick={() => setWatchlisted((value) => !value)}><BookmarkPlus className='h-4 w-4' /> Watchlist</ActionButton>
+            <ActionButton onClick={() => {
+              if (navigator.share) {
+                void navigator.share({ title: movie.title, url: window.location.href })
+              } else {
+                openLogSheet()
+              }
+            }}><Share2 className='h-4 w-4' /> Share</ActionButton>
+          </div>
+        </div>
+      </div>
+
+      <Tabs defaultValue='reviews' className='space-y-4 pb-6'>
         <TabsList className='w-full max-w-full overflow-x-auto'>
           <TabsTrigger value='reviews'>Reviews</TabsTrigger>
           <TabsTrigger value='lists'>Lists</TabsTrigger>
-          <TabsTrigger value='activity'>Activity</TabsTrigger>
           <TabsTrigger value='community'>Community</TabsTrigger>
-          <TabsTrigger value='director-feedback'>Director Feedback</TabsTrigger>
           <TabsTrigger value='meetups'>Meetups</TabsTrigger>
+          <TabsTrigger value='creator-feedback'>Creator Feedback</TabsTrigger>
         </TabsList>
 
-        <TabsContent value='reviews'>
+        <TabsContent value='reviews' className='space-y-4'>
           <MediaReviewsSection mediaId={movie.id} mediaKind='movie' />
+
+          <section className='grid gap-4 lg:grid-cols-[1.2fr_.8fr]'>
+            <MediaRail title='Similar Movies' subtitle='More titles with a similar cinematic fingerprint.' items={similarMovies} kind='movie' />
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Because You Liked This</CardTitle>
+                <CardDescription>Personalized follow-up titles based on the current movie.</CardDescription>
+              </CardHeader>
+              <CardContent className='space-y-3'>
+                {[movie.title, ...similarMovies.slice(0, 3).map((item) => item.title)].map((title) => (
+                  <div key={title} className='rounded-2xl border border-white/10 bg-white/6 p-3 text-sm text-slate-100'>
+                    Follow-up pick for {title}
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </section>
+
+          <section className='grid gap-4 lg:grid-cols-[1fr_.9fr]'>
+            <Card>
+              <CardHeader>
+                <CardTitle>AI Recommended For You</CardTitle>
+                <CardDescription>{aiPick.headline}</CardDescription>
+              </CardHeader>
+              <CardContent className='space-y-3'>
+                {aiPick.rationale.map((item) => (
+                  <div key={item} className='rounded-2xl border border-[#22D3EE]/20 bg-[#22D3EE]/[0.045] p-3 text-sm text-slate-100'>
+                    {item}
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Trending Reviews</CardTitle>
+                <CardDescription>The most engaged reviews for this title.</CardDescription>
+              </CardHeader>
+              <CardContent className='space-y-3'>
+                {movieReviews.slice(0, 3).map((review) => (
+                  <div key={review.id} className='rounded-2xl border border-white/10 bg-white/6 p-3'>
+                    <div className='flex items-center justify-between gap-3'>
+                      <p className='text-sm font-semibold text-white'>{review.user}</p>
+                      <span className='text-xs text-[#F5B041]'>{review.rating.toFixed(1)}</span>
+                    </div>
+                    <p className='mt-2 line-clamp-3 text-sm leading-6 text-slate-200'>{review.text}</p>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </section>
+
+          <section className='grid gap-4 lg:grid-cols-[1fr_.9fr]'>
+            <Card>
+              <CardHeader>
+                <CardTitle>Community Discussions</CardTitle>
+                <CardDescription>Dynamic groups, pinned threads, and spoiler-safe conversation.</CardDescription>
+              </CardHeader>
+              <CardContent className='space-y-3'>
+                {community ? (
+                  <Link key={community.id} to={`/community/${community.slug}`} className='block rounded-2xl border border-[#7C3AED]/25 bg-[#7C3AED]/[0.08] p-3 transition-colors hover:bg-[#7C3AED]/[0.12]'>
+                    <p className='font-semibold text-white'>{community.name}</p>
+                    <p className='mt-1 text-xs text-slate-400'>{community.pinned}</p>
+                  </Link>
+                ) : null}
+                {communities.filter((item) => item.mediaId === movie.id || item.mediaKind === 'movie').slice(0, 3).map((item) => (
+                  <Link key={item.id} to={`/community/${item.slug}`} className='block rounded-2xl border border-white/10 bg-white/6 p-3 transition-colors hover:bg-white/10'>
+                    <p className='font-semibold text-white'>{item.name}</p>
+                    <p className='mt-1 text-xs text-slate-400'>{item.members.toLocaleString()} members</p>
+                  </Link>
+                ))}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Trending Now</CardTitle>
+                <CardDescription>Sorted by current popularity in the mock catalog.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <MediaRail title='' items={[...movies].sort((a, b) => b.popularity - a.popularity).slice(0, 6)} kind='movie' />
+              </CardContent>
+            </Card>
+          </section>
         </TabsContent>
 
         <TabsContent value='lists' className='grid gap-3 sm:grid-cols-3'>
@@ -117,21 +219,6 @@ export function MovieDetailsPage() {
               <p className='text-sm font-semibold text-white'>{list}</p>
               <p className='mt-1 text-xs text-slate-400'>12 films</p>
             </Link>
-          ))}
-        </TabsContent>
-
-        <TabsContent value='activity' className='space-y-2'>
-          {activities.filter((item) => item.mediaId === movie.id).map((activity) => (
-            <article key={activity.id} className='grid grid-cols-[64px_1fr] gap-3 rounded-2xl border border-white/10 bg-white/[0.055] p-3 backdrop-blur'>
-              <div className='grid h-16 w-12 place-items-center rounded-xl border border-white/10 bg-white/6 text-sm font-semibold text-white'>
-                {activity.avatar}
-              </div>
-              <div className='min-w-0'>
-                <p className='truncate text-sm font-semibold text-white'>{activity.user}</p>
-                <p className='text-xs text-slate-400'>{activity.action}</p>
-                <p className='mt-2 line-clamp-2 text-sm leading-6 text-slate-200'>{activity.snippet}</p>
-              </div>
-            </article>
           ))}
         </TabsContent>
 
@@ -150,10 +237,6 @@ export function MovieDetailsPage() {
           ))}
         </TabsContent>
 
-        <TabsContent value='director-feedback'>
-          <DirectorFeedbackSection mediaId={movie.id} mediaKind='movie' directorName={movie.director} />
-        </TabsContent>
-
         <TabsContent value='meetups' className='grid gap-3 sm:grid-cols-3'>
           {meetups.map((meetup) => (
             <Link key={meetup.id} to='/meetups' className='rounded-[1.25rem] border border-white/10 bg-[#162033] p-4 transition-colors duration-200 hover:border-[#7C3AED]/60'>
@@ -161,6 +244,10 @@ export function MovieDetailsPage() {
               <p className='mt-1 text-xs text-slate-400'>{meetup.mode} - {meetup.cadence}</p>
             </Link>
           ))}
+        </TabsContent>
+
+        <TabsContent value='creator-feedback'>
+          <DirectorFeedbackSection mediaId={movie.id} mediaKind='movie' directorName={movie.director} />
         </TabsContent>
       </Tabs>
 

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { BadgeCheck, MessageSquareText, Pin, Send, Star, ThumbsUp } from 'lucide-react'
+import { BadgeCheck, CircleCheckBig, MessageSquareText, Pin, Send, Star, ThumbsUp, Video } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -139,6 +139,7 @@ function FeedbackCard({ entry }: { entry: DirectorFeedbackEntry }) {
 export function DirectorFeedbackSection({ mediaId, mediaKind, directorName }: DirectorFeedbackSectionProps) {
   const entries = useMemo(() => getDirectorFeedback(mediaId, mediaKind), [mediaId, mediaKind])
   const [open, setOpen] = useState(false)
+  const [submittedNotice, setSubmittedNotice] = useState('')
   const [overallRating, setOverallRating] = useState(4)
   const [categoryRatings, setCategoryRatings] = useState<Record<string, number>>({
     storytelling: 4,
@@ -151,14 +152,15 @@ export function DirectorFeedbackSection({ mediaId, mediaKind, directorName }: Di
     pacing: 4,
   })
   const [visualEffects, setVisualEffects] = useState(4)
+  const [videoFeedback, setVideoFeedback] = useState('')
   const [overallComments, setOverallComments] = useState('')
   const [impressedScene, setImpressedScene] = useState('')
   const [improvedScene, setImprovedScene] = useState('')
   const [futureSuggestions, setFutureSuggestions] = useState('')
 
-  const canSubmit = currentViewer.canSubmitDirectorFeedback
+  const canSubmit = currentViewer.canSubmitDirectorFeedback && currentViewer.badges.includes('Premium Critic') && currentViewer.badges.includes('Verified Critic')
   const visibleCategories = mediaKind === 'movie' ? [...baseCategories, 'visualEffects'] : baseCategories
-  const feedbackLimit = 2000
+  const feedbackLimit = 4000
   const canSubmitNow = overallComments.trim().length > 0 && overallComments.length <= feedbackLimit
 
   const setCategoryValue = (category: string, value: number) => {
@@ -176,13 +178,15 @@ export function DirectorFeedbackSection({ mediaId, mediaKind, directorName }: Di
         <div className='flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between'>
           <div className='space-y-2'>
             <div className='flex flex-wrap items-center gap-2'>
+              <span className='rounded-full border border-[#7C3AED]/30 bg-[#7C3AED]/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#E9D5FF]'>Premium</span>
               <BadgeCheck className='h-4 w-4 text-[#22D3EE]' />
-              <p className='text-sm font-semibold text-white'>Constructive feedback for {directorName}</p>
+              <p className='text-sm font-semibold text-white'>Creator Feedback for {directorName}</p>
             </div>
             <p className='max-w-2xl text-sm leading-6 text-slate-300'>
-              Only verified and eligible members can submit feedback. Everyone can read and learn from the curated notes below.
+              This is a private review channel. Only verified Premium Critics can submit long-form feedback directly to the official creator dashboard.
             </p>
             <div className='flex flex-wrap gap-2'>
+              <span className='rounded-full border border-white/10 bg-white/6 px-2.5 py-1 text-[11px] text-slate-200'>Private submission</span>
               {currentViewer.badges.map((badge) => (
                 <span key={badge} className='rounded-full border border-white/10 bg-[#7C3AED]/14 px-2.5 py-1 text-[11px] text-[#E9D5FF]'>{badge}</span>
               ))}
@@ -190,10 +194,10 @@ export function DirectorFeedbackSection({ mediaId, mediaKind, directorName }: Di
           </div>
 
           <div className='flex flex-col items-start gap-2 lg:items-end'>
-            <span className='rounded-full border border-[#22D3EE]/30 bg-[#22D3EE]/10 px-3 py-1 text-xs text-[#A5F3FC]'>Professional feedback only</span>
+            <span className='rounded-full border border-[#22D3EE]/30 bg-[#22D3EE]/10 px-3 py-1 text-xs text-[#A5F3FC]'>Verified critic access</span>
             {canSubmit ? (
               <Button onClick={() => setOpen(true)} className='rounded-full'>
-                Submit Director Feedback
+                Submit Creator Feedback
               </Button>
             ) : (
               <Button disabled variant='secondary' className='rounded-full'>
@@ -204,6 +208,15 @@ export function DirectorFeedbackSection({ mediaId, mediaKind, directorName }: Di
         </div>
       </div>
 
+      {submittedNotice ? (
+        <div className='rounded-[1.25rem] border border-[#22D3EE]/25 bg-[#22D3EE]/[0.08] px-4 py-3 text-sm text-[#CFFAFE]'>
+          <div className='flex items-center gap-2'>
+            <CircleCheckBig className='h-4 w-4' />
+            <span>{submittedNotice}</span>
+          </div>
+        </div>
+      ) : null}
+
       <div className='space-y-3'>
         {entries.map((entry) => (
           <FeedbackCard key={entry.id} entry={entry} />
@@ -213,9 +226,9 @@ export function DirectorFeedbackSection({ mediaId, mediaKind, directorName }: Di
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className='max-w-3xl'>
           <DialogHeader>
-            <DialogTitle>Submit Director Feedback</DialogTitle>
+            <DialogTitle>Submit Creator Feedback</DialogTitle>
             <DialogDescription>
-              Constructive, respectful notes help filmmakers understand what worked and what can be improved.
+              Private feedback is delivered to the official creator dashboard. Keep it specific, respectful, and actionable.
             </DialogDescription>
           </DialogHeader>
 
@@ -227,10 +240,12 @@ export function DirectorFeedbackSection({ mediaId, mediaKind, directorName }: Di
             onSubmit={(event) => {
               event.preventDefault()
               setOpen(false)
+              setSubmittedNotice('Private submission sent to the creator dashboard.')
               setOverallComments('')
               setImpressedScene('')
               setImprovedScene('')
               setFutureSuggestions('')
+              setVideoFeedback('')
             }}
           >
             <div className='grid gap-3 sm:grid-cols-[1fr_auto] sm:items-center'>
@@ -266,34 +281,40 @@ export function DirectorFeedbackSection({ mediaId, mediaKind, directorName }: Di
 
             <div className='grid gap-3'>
               <label className='space-y-2'>
-                <span className='text-sm font-medium text-white'>Overall comments</span>
+                <span className='text-sm font-medium text-white'>Long-form review</span>
                 <textarea
                   value={overallComments}
                   onChange={(event) => setOverallComments(event.target.value.slice(0, feedbackLimit))}
                   maxLength={feedbackLimit}
-                  rows={5}
-                  placeholder='Keep the note respectful, specific, and constructive.'
+                  rows={7}
+                  placeholder='Write a detailed, creator-facing review with specific notes on what worked and what can be improved.'
                   className='w-full rounded-2xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400/70'
                 />
                 <div className='flex justify-between text-xs text-slate-400'>
-                  <span>Maximum 2000 characters</span>
+                  <span>Maximum 4000 characters</span>
                   <span>{overallComments.length}/{feedbackLimit}</span>
                 </div>
               </label>
 
+              <label className='space-y-2'>
+                <span className='flex items-center gap-2 text-sm font-medium text-white'>
+                  <Video className='h-4 w-4 text-[#A78BFA]' /> Optional video feedback
+                </span>
+                <Input value={videoFeedback} onChange={(event) => setVideoFeedback(event.target.value)} placeholder='Video link, recording note, or timestamp summary' />
+              </label>
               <Input value={impressedScene} onChange={(event) => setImpressedScene(event.target.value)} placeholder='Scene that impressed you most (optional)' />
               <Input value={improvedScene} onChange={(event) => setImprovedScene(event.target.value)} placeholder='Scene that could be improved (optional)' />
               <Input value={futureSuggestions} onChange={(event) => setFutureSuggestions(event.target.value)} placeholder='Suggestions for future projects (optional)' />
             </div>
 
             <div className='flex flex-wrap items-center justify-between gap-3'>
-              <p className='text-xs text-slate-400'>Feedback should stay constructive and professional.</p>
+              <p className='text-xs text-slate-400'>Your submission will remain private inside the creator dashboard.</p>
               <div className='flex gap-2'>
                 <Button type='button' variant='secondary' onClick={() => setOpen(false)} className='rounded-full'>
                   Cancel
                 </Button>
                 <Button type='submit' disabled={!canSubmitNow} className='rounded-full'>
-                  <Send className='h-4 w-4' /> Submit
+                  <Send className='h-4 w-4' /> Send Privately
                 </Button>
               </div>
             </div>

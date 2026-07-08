@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Clapperboard, Film, List, NotebookPen, Plus, PlaySquare, Tv } from 'lucide-react'
+import { CalendarDays, Clapperboard, Film, List, MessageCircleMore, NotebookPen, PlaySquare, Tv } from 'lucide-react'
 import { createContext, useContext, useMemo, useState, type PropsWithChildren } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -14,11 +14,11 @@ type LogAction = {
 const logActions: LogAction[] = [
   { label: 'Log Movie', icon: Film, to: '/diary' },
   { label: 'Log Series', icon: Tv, to: '/series' },
-  { label: 'Log Season', icon: Clapperboard, to: '/series' },
-  { label: 'Log Episode', icon: PlaySquare, to: '/series' },
   { label: 'Write Review', icon: NotebookPen, to: '/reviews' },
-  { label: 'Upload Video Review', icon: Plus, to: '/reviews' },
+  { label: 'Record Video Review', icon: PlaySquare, to: '/reviews' },
   { label: 'Create List', icon: List, to: '/watchlist' },
+  { label: 'Start Discussion', icon: MessageCircleMore, to: '/communities' },
+  { label: 'Create Meetup', icon: CalendarDays, to: '/meetups' },
 ]
 
 type LogActionContextValue = {
@@ -70,7 +70,7 @@ export function LogActionProvider({ children }: PropsWithChildren) {
               <div className='w-full rounded-[1.5rem] border border-white/10 bg-[#162033]/96 p-4 shadow-[0_24px_70px_rgba(0,0,0,.5)] backdrop-blur-2xl'>
                 <div className='mb-4 flex items-center justify-between gap-3'>
                   <div>
-                    <p className='text-xs uppercase tracking-[0.22em] text-[#7C3AED]'>Log Something</p>
+                    <p className='text-xs uppercase tracking-[0.22em] text-[#7C3AED]'>Create</p>
                     <h3 className='text-lg font-semibold text-white'>Quick actions</h3>
                   </div>
                   <button type='button' className='rounded-full border border-white/10 bg-white/6 px-3 py-1.5 text-xs text-slate-200' onClick={() => setIsOpen(false)}>
@@ -112,10 +112,10 @@ export function FloatingLogButton() {
     <button
       type='button'
       onClick={open}
-      aria-label='Log something'
+      aria-label='Open create actions'
       className='fixed bottom-6 left-1/2 z-50 hidden h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full border border-white/10 bg-[linear-gradient(180deg,rgba(124,58,237,.92),rgba(147,51,234,.92))] text-white shadow-[0_0_28px_rgba(124,58,237,.42)] backdrop-blur-xl transition hover:scale-105 hover:brightness-110 md:grid'
     >
-      <Plus className='h-6 w-6' />
+      <Clapperboard className='h-6 w-6' />
     </button>
   )
 }
