@@ -11,7 +11,7 @@ export function DirectorFeedbackPage() {
   return (
     <div className='space-y-6'>
       <div>
-        <p className='text-xs uppercase tracking-[0.22em] text-[#35d07f]'>Director feedback</p>
+        <p className='text-xs uppercase tracking-[0.22em] text-[#7C3AED]'>Director feedback</p>
         <h1 className='mt-1 text-2xl font-semibold text-white sm:text-3xl'>Constructive notes for films</h1>
       </div>
 
@@ -22,7 +22,7 @@ export function DirectorFeedbackPage() {
       </section>
 
       <section className='grid gap-4 lg:grid-cols-[1fr_0.8fr]'>
-        <div className='rounded-lg border border-white/10 bg-[#101827] p-4'>
+        <div className='rounded-lg border border-white/10 bg-[#162033] p-4'>
           <p className='text-base font-semibold text-white'>Submit feedback</p>
           <div className='mt-4 grid gap-3'>
             <Input placeholder='Movie title' />
@@ -36,12 +36,12 @@ export function DirectorFeedbackPage() {
           </div>
         </div>
 
-        <div className='rounded-lg border border-white/10 bg-[#101827] p-4'>
+        <div className='rounded-lg border border-white/10 bg-[#162033] p-4'>
           <p className='text-base font-semibold text-white'>Feedback categories</p>
           <div className='mt-4 space-y-3'>
             {feedbackBuckets.map((item) => (
               <div key={item} className='flex items-start gap-2 rounded-md border border-white/10 bg-white/6 p-3'>
-                <PencilLine className='mt-0.5 h-4 w-4 text-[#35d07f]' />
+                <PencilLine className='mt-0.5 h-4 w-4 text-[#7C3AED]' />
                 <div>
                   <p className='text-sm font-semibold text-white'>{item}</p>
                   <p className='mt-1 text-sm leading-5 text-slate-300'>Frontend mock data only, ready to connect later.</p>

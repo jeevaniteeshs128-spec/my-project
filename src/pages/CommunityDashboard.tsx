@@ -10,7 +10,7 @@ export function CommunityDashboard() {
   return (
     <div className='space-y-5'>
       <div>
-        <p className='text-xs uppercase tracking-[0.22em] text-[#35d07f]'>Communities</p>
+        <p className='text-xs uppercase tracking-[0.22em] text-[#7C3AED]'>Communities</p>
         <h1 className='mt-1 text-2xl font-semibold text-white sm:text-3xl'>Movie rooms</h1>
       </div>
 
@@ -22,11 +22,11 @@ export function CommunityDashboard() {
             <Link
               key={community.id}
               to={`/community/${community.slug}`}
-              className='group overflow-hidden rounded-lg border border-white/10 bg-[#101827] transition-colors duration-200 hover:border-[#35d07f]/70'
+              className='group overflow-hidden rounded-lg border border-white/10 bg-[#162033] transition-colors duration-200 hover:border-[#7C3AED]/70'
             >
               <div className='relative h-40'>
                 <img src={media.backdrop} alt={media.title} className='absolute inset-0 h-full w-full object-cover' />
-                <div className='absolute inset-0 bg-gradient-to-r from-[#081023]/95 via-[#081023]/60 to-transparent' />
+                <div className='absolute inset-0 bg-gradient-to-r from-[#081120]/95 via-[#081120]/60 to-transparent' />
                 <img src={media.poster} alt={media.title} className='absolute bottom-3 left-3 h-32 w-20 rounded-md border border-white/15 object-cover' />
               </div>
               <div className='p-3 pl-[112px] sm:pl-3'>

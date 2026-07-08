@@ -22,14 +22,14 @@ export function DiaryPage() {
     <div className='space-y-5'>
       <div className='flex flex-wrap items-end justify-between gap-3'>
         <div>
-          <p className='text-xs uppercase tracking-[0.22em] text-[#35d07f]'>Diary</p>
+          <p className='text-xs uppercase tracking-[0.22em] text-[#7C3AED]'>Diary</p>
           <h1 className='mt-1 text-2xl font-semibold text-white sm:text-3xl'>Film diary</h1>
         </div>
         <div className='flex gap-2'>
           <button
             type='button'
             onClick={() => setPrivateDiary((value) => !value)}
-            className={`inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm transition-colors duration-200 ${privateDiary ? 'border-[#35d07f]/30 bg-[#35d07f]/12 text-[#35d07f]' : 'border-white/10 bg-white/6 text-slate-200'}`}
+            className={`inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm transition-colors duration-200 ${privateDiary ? 'border-[#7C3AED]/30 bg-[#7C3AED]/12 text-[#7C3AED]' : 'border-white/10 bg-white/6 text-slate-200'}`}
           >
             <LockKeyhole className='h-4 w-4' /> {privateDiary ? 'Private diary' : 'Public diary'}
           </button>
@@ -69,7 +69,7 @@ export function DiaryPage() {
 
       <section className='relative overflow-hidden rounded-lg border border-white/10'>
         <img src={activeBg} alt='Diary backdrop' className='absolute inset-0 h-full w-full object-cover' />
-        <div className='absolute inset-0 bg-[#081023]/72 backdrop-blur-[2px]' />
+        <div className='absolute inset-0 bg-[#081120]/72 backdrop-blur-[2px]' />
         <div className='relative overflow-x-auto p-3 sm:p-4'>
           <table className='w-full min-w-[720px] border-collapse text-left'>
             <thead>
@@ -91,10 +91,10 @@ export function DiaryPage() {
                     <td className='py-3 pr-4 text-sm text-slate-300'>{entry.date}</td>
                     <td className='py-3 pr-4'><img src={movie.poster} alt={movie.title} className='h-20 w-14 rounded-md object-cover' /></td>
                     <td className='py-3 pr-4 text-sm font-semibold text-white'>{movie.title}</td>
-                    <td className='py-3 pr-4 text-sm text-[#35d07f]'>{entry.rating.toFixed(1)}</td>
+                    <td className='py-3 pr-4 text-sm text-[#F5B041]'>{entry.rating.toFixed(1)}</td>
                     <td className='max-w-sm py-3 pr-4 text-sm leading-5 text-slate-300'>{entry.review}</td>
                     <td className='py-3 pr-4'><span className='rounded-md bg-white/8 px-2 py-1 text-xs text-slate-200'>{entry.mood}</span></td>
-                    <td className='py-3'><span className='rounded-md bg-[#35d07f]/12 px-2 py-1 text-xs text-[#35d07f]'>{privateDiary ? 'Private' : 'Public'}</span></td>
+                    <td className='py-3'><span className='rounded-md bg-[#7C3AED]/12 px-2 py-1 text-xs text-[#7C3AED]'>{privateDiary ? 'Private' : 'Public'}</span></td>
                   </tr>
                 )
               })}

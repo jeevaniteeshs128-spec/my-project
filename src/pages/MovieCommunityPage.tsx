@@ -16,9 +16,9 @@ export function MovieCommunityPage() {
 
   return (
     <div className='space-y-6'>
-      <section className='relative overflow-hidden rounded-lg border border-white/10 bg-[#101827]'>
+      <section className='relative overflow-hidden rounded-lg border border-white/10 bg-[#162033]'>
         <img src={media.backdrop} alt={media.title} className='absolute inset-0 h-full w-full object-cover' />
-        <div className='absolute inset-0 bg-gradient-to-r from-[#081023]/95 via-[#081023]/70 to-[#081023]/20' />
+        <div className='absolute inset-0 bg-gradient-to-r from-[#081120]/95 via-[#081120]/70 to-[#081120]/20' />
         <div className='relative grid gap-4 p-4 sm:grid-cols-[130px_1fr] sm:p-5'>
           <img src={media.poster} alt={media.title} className='w-32 rounded-md border border-white/15 object-cover' />
           <div className='flex flex-col justify-end'>
@@ -30,15 +30,15 @@ export function MovieCommunityPage() {
                 <span key={tab} className='rounded-md bg-white/8 px-2 py-1 text-xs text-slate-200'>{tab}</span>
               ))}
             </div>
-            <p className='mt-3 inline-flex items-center gap-2 text-sm text-slate-300'><Users className='h-4 w-4 text-[#35d07f]' /> {community.members.toLocaleString()} members</p>
+            <p className='mt-3 inline-flex items-center gap-2 text-sm text-slate-300'><Users className='h-4 w-4 text-[#7C3AED]' /> {community.members.toLocaleString()} members</p>
           </div>
         </div>
       </section>
 
       <section className='grid gap-4 lg:grid-cols-[1fr_0.8fr]'>
-        <div className='rounded-lg border border-white/10 bg-[#101827] p-4'>
+        <div className='rounded-lg border border-white/10 bg-[#162033] p-4'>
           <div className='mb-2 flex items-center gap-2'>
-            <MessageSquareDot className='h-4 w-4 text-[#35d07f]' />
+            <MessageSquareDot className='h-4 w-4 text-[#7C3AED]' />
             <h2 className='text-base font-semibold text-white'>Discussion threads</h2>
           </div>
           <div className='divide-y divide-white/10'>
@@ -52,16 +52,16 @@ export function MovieCommunityPage() {
         </div>
 
         <div className='space-y-4'>
-          <div className='rounded-lg border border-white/10 bg-[#101827] p-4'>
+          <div className='rounded-lg border border-white/10 bg-[#162033] p-4'>
             <div className='flex items-center gap-2'>
-              <Vote className='h-4 w-4 text-[#35d07f]' />
+              <Vote className='h-4 w-4 text-[#7C3AED]' />
               <h2 className='text-base font-semibold text-white'>Active poll</h2>
             </div>
             <p className='mt-3 text-sm leading-6 text-slate-300'>Which scene changed your interpretation most?</p>
-            <div className='mt-3 rounded-md border border-[#35d07f]/25 bg-[#35d07f]/12 p-3 text-sm text-slate-200'>Ending debate leads with 42%</div>
+            <div className='mt-3 rounded-md border border-[#7C3AED]/25 bg-[#7C3AED]/12 p-3 text-sm text-slate-200'>Ending debate leads with 42%</div>
           </div>
-          <div className='rounded-lg border border-white/10 bg-[#101827] p-4'>
-            <div className='flex items-center gap-2 text-[#35d07f]'>
+          <div className='rounded-lg border border-white/10 bg-[#162033] p-4'>
+            <div className='flex items-center gap-2 text-[#7C3AED]'>
               <ShieldAlert className='h-4 w-4' />
               <p className='text-sm font-semibold'>Spoiler discussions are flagged</p>
             </div>
@@ -73,7 +73,7 @@ export function MovieCommunityPage() {
         <h2 className='text-base font-semibold text-white'>Community reviews</h2>
         <div className='mt-3 grid gap-3 md:grid-cols-2'>
           {reviews.slice(0, 4).map((review) => (
-            <article key={review.id} className='rounded-lg border border-white/10 bg-[#101827] p-3'>
+            <article key={review.id} className='rounded-lg border border-white/10 bg-[#162033] p-3'>
               <p className='text-sm font-semibold text-white'>{review.user}</p>
               <p className='mt-2 line-clamp-2 text-sm leading-5 text-slate-300'>{review.text}</p>
             </article>

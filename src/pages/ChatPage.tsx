@@ -6,10 +6,10 @@ import { messages, movies } from '@/data/mockData'
 
 export function ChatPage() {
   return (
-    <div className='overflow-hidden rounded-lg border border-white/10 bg-[#101827] lg:grid lg:min-h-[680px] lg:grid-cols-[320px_1fr]'>
+    <div className='overflow-hidden rounded-lg border border-white/10 bg-[#162033] lg:grid lg:min-h-[680px] lg:grid-cols-[320px_1fr]'>
       <aside className='border-b border-white/10 lg:border-b-0 lg:border-r'>
         <div className='border-b border-white/10 p-4'>
-          <p className='text-xs uppercase tracking-[0.22em] text-[#35d07f]'>Chat</p>
+          <p className='text-xs uppercase tracking-[0.22em] text-[#7C3AED]'>Chat</p>
           <h1 className='mt-1 text-xl font-semibold text-white'>Mutual followers</h1>
         </div>
         <div>
@@ -34,12 +34,12 @@ export function ChatPage() {
             <p className='text-base font-semibold text-white'>cine_lina</p>
             <p className='text-xs text-slate-400'>Mutual follower - online now</p>
           </div>
-          <span className='h-2.5 w-2.5 rounded-full bg-[#35d07f]' />
+          <span className='h-2.5 w-2.5 rounded-full bg-[#7C3AED]' />
         </div>
 
         <div className='flex-1 space-y-3 overflow-y-auto p-4'>
           <div className='max-w-md rounded-lg border border-white/10 bg-white/6 p-3 text-sm leading-6 text-slate-100'>Did you see the new community poll?</div>
-          <div className='ml-auto max-w-md rounded-lg border border-[#35d07f]/25 bg-[#35d07f]/12 p-3 text-sm leading-6 text-slate-100'>Yes, and I left a spoiler-safe reply in the thread.</div>
+          <div className='ml-auto max-w-md rounded-lg border border-[#7C3AED]/25 bg-[#7C3AED]/12 p-3 text-sm leading-6 text-slate-100'>Yes, and I left a spoiler-safe reply in the thread.</div>
           <div className='grid max-w-md grid-cols-[58px_1fr] gap-3 rounded-lg border border-white/10 bg-white/6 p-3'>
             <img src={movies[0].poster} alt={movies[0].title} className='h-20 w-14 rounded-md object-cover' />
             <div>
@@ -55,7 +55,7 @@ export function ChatPage() {
             <Paperclip className='h-4 w-4' />
           </button>
           <Input placeholder='Type a message' />
-          <button className='grid h-10 w-10 place-items-center rounded-md bg-[#35d07f] text-[#081023] transition-colors duration-200 hover:bg-[#55e596]' aria-label='Send message'>
+          <button className='grid h-10 w-10 place-items-center rounded-md bg-[#7C3AED] text-white transition-colors duration-200 hover:bg-[#9333EA]' aria-label='Send message'>
             <Send className='h-4 w-4' />
           </button>
         </div>

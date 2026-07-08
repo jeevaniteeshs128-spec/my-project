@@ -6,6 +6,51 @@ export type Quote = {
   author: string
 }
 
+export type PersonCredit = {
+  id: string
+  title: string
+  mediaKind: MediaKind
+  year: number
+  poster: string
+  rating: number
+}
+
+export type PersonTimelineItem = {
+  year: string
+  title: string
+  description: string
+}
+
+export type ActorProfile = {
+  slug: string
+  name: string
+  avatar: string
+  bio: string
+  photos: string[]
+  knownFor: string[]
+  movieography: PersonCredit[]
+  tvShows: PersonCredit[]
+  upcomingProjects: string[]
+}
+
+export type DirectorProfile = {
+  slug: string
+  name: string
+  avatar: string
+  bio: string
+  timeline: PersonTimelineItem[]
+  filmography: PersonCredit[]
+  highestRatedMovies: string[]
+  awards: string[]
+  communityReviews: string[]
+}
+
+export type AiRecommendation = {
+  headline: string
+  rationale: string[]
+  items: string[]
+}
+
 export type MediaKind = 'movie' | 'series'
 
 export type Movie = {

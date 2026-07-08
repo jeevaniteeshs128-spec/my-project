@@ -1,6 +1,9 @@
 import type {
   Activity,
+  AiRecommendation,
+  ActorProfile,
   Community,
+  DirectorProfile,
   Meetup,
   Message,
   Movie,
@@ -282,6 +285,131 @@ export const reviews: Review[] = [
   { id: 'r4', mediaId: 'severance', mediaKind: 'series', user: 'cine_lina', avatar: 'LI', rating: 4.6, text: 'The clean rooms make dread feel ergonomic. Perfectly odd, perfectly controlled.', spoiler: true, likes: 184, comments: 39, bookmarks: 27, kind: 'video', filter: 'newest' },
 ]
 
+export const actors: ActorProfile[] = [
+  {
+    slug: 'matthew-mcconaughey',
+    name: 'Matthew McConaughey',
+    avatar: 'MM',
+    bio: 'A Texas-born lead who moves between warmth, stillness, and absolute emotional control.',
+    photos: [poster('photo-1489599849927-2ee91cede3ba'), backdrop('photo-1534447677768-be436bb09401')],
+    knownFor: ['interstellar', 'after-sunrise'],
+    movieography: [
+      { id: 'interstellar', title: 'Interstellar', mediaKind: 'movie', year: 2014, poster: movies[0].poster, rating: 4.8 },
+      { id: 'after-sunrise', title: 'After Sunrise', mediaKind: 'movie', year: 2026, poster: movies[5].poster, rating: 4.2 },
+    ],
+    tvShows: [],
+    upcomingProjects: ['Harbor Light', 'The Last Frame'],
+  },
+  {
+    slug: 'anne-hathaway',
+    name: 'Anne Hathaway',
+    avatar: 'AH',
+    bio: 'Known for sharp emotional transitions and immaculate screen presence.',
+    photos: [movies[0].poster, backdrop('photo-1493246507139-91e8fad9978e')],
+    knownFor: ['interstellar'],
+    movieography: [
+      { id: 'interstellar', title: 'Interstellar', mediaKind: 'movie', year: 2014, poster: movies[0].poster, rating: 4.8 },
+    ],
+    tvShows: [],
+    upcomingProjects: ['Velvet Orbit'],
+  },
+  {
+    slug: 'cillian-murphy',
+    name: 'Cillian Murphy',
+    avatar: 'CM',
+    bio: 'A magnetic lead who brings precision and unease into every frame.',
+    photos: [movies[4].poster, backdrop('photo-1500530855697-b586d89ba3ee')],
+    knownFor: ['oppenheimer', 'peaky-blinders'],
+    movieography: [
+      { id: 'oppenheimer', title: 'Oppenheimer', mediaKind: 'movie', year: 2023, poster: movies[4].poster, rating: 4.4 },
+    ],
+    tvShows: [
+      { id: 'peaky-blinders', title: 'Peaky Blinders', mediaKind: 'series', year: 2013, poster: poster('photo-1509347528160-9a9e33742cdb'), rating: 4.9 },
+    ],
+    upcomingProjects: ['Small Things Like These'],
+  },
+  {
+    slug: 'faye-wong',
+    name: 'Faye Wong',
+    avatar: 'FW',
+    bio: 'An icon of floating melancholy, rhythm, and urban softness.',
+    photos: [movies[3].poster, backdrop('photo-1470225620780-dba8ba36b745')],
+    knownFor: ['chungking-express'],
+    movieography: [
+      { id: 'chungking-express', title: 'Chungking Express', mediaKind: 'movie', year: 1994, poster: movies[3].poster, rating: 4.5 },
+    ],
+    tvShows: [],
+    upcomingProjects: ['Night Train Songs'],
+  },
+]
+
+export const directors: DirectorProfile[] = [
+  {
+    slug: 'christopher-nolan',
+    name: 'Christopher Nolan',
+    avatar: 'CN',
+    bio: 'A director of scale, structure, and emotional precision, balancing spectacle with rigorous control.',
+    timeline: [
+      { year: '1998', title: 'Following', description: 'First feature establishes the puzzle-driven style.' },
+      { year: '2010', title: 'Inception', description: 'Turns dream logic into mass-market blockbuster architecture.' },
+      { year: '2014', title: 'Interstellar', description: 'Reframes science fiction as human survival and love.' },
+      { year: '2023', title: 'Oppenheimer', description: 'Merges historical gravity with formal precision.' },
+    ],
+    filmography: [
+      { id: 'interstellar', title: 'Interstellar', mediaKind: 'movie', year: 2014, poster: movies[0].poster, rating: 4.8 },
+      { id: 'oppenheimer', title: 'Oppenheimer', mediaKind: 'movie', year: 2023, poster: movies[4].poster, rating: 4.4 },
+    ],
+    highestRatedMovies: ['Interstellar', 'The Dark Knight', 'Oppenheimer'],
+    awards: ['Academy Award', 'BAFTA', 'Golden Globe'],
+    communityReviews: ['Immaculate command of scale and sound.', 'The most architected blockbuster voice of the era.'],
+  },
+  {
+    slug: 'wong-kar-wai',
+    name: 'Wong Kar-wai',
+    avatar: 'WK',
+    bio: 'A filmmaker of longing, motion, color, and urban memory.',
+    timeline: [
+      { year: '1990', title: 'Days of Being Wild', description: 'Introduces the languid, neon-tinted sensibility.' },
+      { year: '1994', title: 'Chungking Express', description: 'Makes solitude feel kinetic and musical.' },
+      { year: '2000', title: 'In the Mood for Love', description: 'Refines intimacy into a visual discipline.' },
+    ],
+    filmography: [
+      { id: 'chungking-express', title: 'Chungking Express', mediaKind: 'movie', year: 1994, poster: movies[3].poster, rating: 4.5 },
+    ],
+    highestRatedMovies: ['In the Mood for Love', 'Chungking Express', '2046'],
+    awards: ['Cannes Best Director', 'Hong Kong Film Award'],
+    communityReviews: ['The master of romantic drift.', 'Every frame feels like a memory in motion.'],
+  },
+]
+
+export const similarMoviesMap: Record<string, string[]> = {
+  interstellar: ['oppenheimer', 'after-sunrise', 'parasite'],
+  parasite: ['nayakan', 'oppenheimer', 'interstellar'],
+  nayakan: ['parasite', 'interstellar', 'chungking-express'],
+  'chungking-express': ['after-sunrise', 'interstellar', 'parasite'],
+  oppenheimer: ['interstellar', 'parasite', 'nayakan'],
+  'after-sunrise': ['chungking-express', 'interstellar', 'oppenheimer'],
+}
+
+export const similarSeriesMap: Record<string, string[]> = {
+  'station-eleven': ['severance', 'dark'],
+  severance: ['station-eleven', 'dark'],
+  dark: ['severance', 'station-eleven'],
+}
+
+export const aiRecommendations: Record<string, AiRecommendation> = {
+  interstellar: {
+    headline: 'Because you loved Interstellar',
+    rationale: ['Director: Christopher Nolan', 'Genres: Sci-Fi, Drama', 'Themes: time, sacrifice, family', 'Mood: awe with emotional weight'],
+    items: ['oppenheimer', 'station-eleven', 'after-sunrise'],
+  },
+  severance: {
+    headline: 'Because you highly rated Severance',
+    rationale: ['Director craft: controlled tension', 'Genres: Mystery, Sci-Fi', 'Themes: identity, work, memory', 'Mood: clinical suspense'],
+    items: ['dark', 'station-eleven', 'interstellar'],
+  },
+}
+
 export const activities: Activity[] = [
   { id: 'a1', user: 'cinema_ari', avatar: 'AR', action: 'logged movie', mediaId: 'interstellar', mediaKind: 'movie', rating: 5, snippet: 'Docking sequence still owns my whole nervous system.' },
   { id: 'a2', user: 'film_mira', avatar: 'MI', action: 'logged episode', mediaId: 'station-eleven', mediaKind: 'series', rating: 4.5, snippet: 'The progress tracker is painfully satisfying.' },
@@ -317,10 +445,10 @@ export const messages: Message[] = [
 ]
 
 export const roleThemes: Record<UserRole, string> = {
-  reviewer: 'from-emerald-400/30 to-sky-500/10',
-  director: 'from-amber-400/35 to-rose-500/10',
-  community: 'from-cyan-400/30 to-emerald-500/10',
-  general: 'from-white/15 to-emerald-400/10',
+  reviewer: 'from-violet-500/30 to-fuchsia-500/10',
+  director: 'from-[#F5B041]/35 to-orange-500/10',
+  community: 'from-violet-500/25 to-slate-500/10',
+  general: 'from-white/15 to-violet-500/10',
 }
 
 export const diaryBackgrounds = movies.slice(0, 3).map((movie) => movie.backdrop)
@@ -332,4 +460,24 @@ export const allMedia = [
 
 export function getMedia(id: string) {
   return allMedia.find((item) => item.id === id)
+}
+
+export function getActor(slug: string) {
+  return actors.find((item) => item.slug === slug)
+}
+
+export function getDirector(slug: string) {
+  return directors.find((item) => item.slug === slug)
+}
+
+export function getSimilarMovies(id: string) {
+  return (similarMoviesMap[id] ?? movies.slice(0, 4).map((movie) => movie.id))
+    .map((movieId) => movies.find((movie) => movie.id === movieId))
+    .filter((movie): movie is Movie => Boolean(movie))
+}
+
+export function getRecommendedSeries(id: string) {
+  return (similarSeriesMap[id] ?? series.slice(0, 3).map((show) => show.id))
+    .map((seriesId) => series.find((show) => show.id === seriesId))
+    .filter((show): show is Series => Boolean(show))
 }

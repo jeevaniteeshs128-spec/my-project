@@ -3,6 +3,8 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import { AppLayout } from '@/components/layout/AppLayout'
 import { ChatPage } from '@/pages/ChatPage'
+import { DirectorPage } from '@/pages/DirectorPage'
+import { ActorPage } from '@/pages/ActorPage'
 import { CommunityDashboard } from '@/pages/CommunityDashboard'
 import { DiaryPage } from '@/pages/DiaryPage'
 import { DirectorFeedbackPage } from '@/pages/DirectorFeedbackPage'
@@ -43,6 +45,8 @@ function AnimatedRoutes() {
           <Route path='/dashboard/community' element={<Navigate to='/communities' replace />} />
           <Route path='/movies' element={<MoviesPage />} />
           <Route path='/movie/:movieId' element={<MovieDetailsPage />} />
+          <Route path='/actor/:actorSlug' element={<ActorPage />} />
+          <Route path='/director/:directorSlug' element={<DirectorPage />} />
           <Route path='/series' element={<SeriesPage />} />
           <Route path='/series/:seriesId' element={<SeriesDetailsPage />} />
           <Route path='/search' element={<SearchPage />} />

@@ -1,9 +1,27 @@
 @import 'tailwindcss';
 
 :root {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
-  color: #ffffff;
-  background: #0b1020;
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  color: #f8fafc;
+  background-color: #081120;
+  color-scheme: dark;
+  --fp-bg: #081120;
+  --fp-bg-secondary: #111827;
+  --fp-card: rgba(22, 32, 51, 0.88);
+  --fp-card-elevated: rgba(28, 41, 66, 0.94);
+  --fp-violet: #7c3aed;
+  --fp-violet-dark: #6d28d9;
+  --fp-violet-bright: #9333ea;
+  --fp-gold: #f5b041;
+  --fp-ai: #22d3ee;
+  --fp-text: #f8fafc;
+  --fp-text-secondary: #cbd5e1;
+  --fp-text-muted: #94a3b8;
+  --fp-text-disabled: #64748b;
+  --fp-border: rgba(255, 255, 255, 0.1);
+  --fp-border-strong: rgba(124, 58, 237, 0.32);
+  --fp-shadow-soft: 0 18px 50px rgba(0, 0, 0, 0.28);
+  --fp-shadow-elevated: 0 28px 90px rgba(0, 0, 0, 0.42);
 }
 
 * {
@@ -18,6 +36,64 @@ body,
 
 body {
   margin: 0;
-  background: #0b1020;
-  color: #ffffff;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(124, 58, 237, 0.22), transparent 28%),
+    radial-gradient(circle at 82% 8%, rgba(245, 176, 65, 0.12), transparent 22%),
+    linear-gradient(180deg, #081120 0%, #111827 48%, #081120 100%);
+  color: #f8fafc;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(124, 58, 237, 0.42);
+  color: #f8fafc;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #081120;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(124, 58, 237, 0.7), rgba(148, 163, 184, 0.38));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(147, 51, 234, 0.85), rgba(245, 176, 65, 0.5));
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  display: block;
+}
+
+@keyframes fp-marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.fp-marquee-track {
+  display: flex;
+  gap: 0.75rem;
+  width: max-content;
+  animation: fp-marquee 32s linear infinite;
 }
