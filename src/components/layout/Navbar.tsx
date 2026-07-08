@@ -7,6 +7,7 @@ const navItems = [
   { to: '/', label: 'Home' },
   { to: '/movies', label: 'Movies' },
   { to: '/series', label: 'Series' },
+  { to: '/director-feedback', label: 'Director Feedback' },
   { to: '/communities', label: 'Communities' },
   { to: '/chat', label: 'Chats' },
   { to: '/meetups', label: 'Meetups' },

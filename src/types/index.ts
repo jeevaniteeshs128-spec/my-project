@@ -6,6 +6,82 @@ export type Quote = {
   author: string
 }
 
+export type FeedbackBadge = 'Verified Critic' | 'Filmmaker' | 'Top Reviewer' | 'Community Curator' | 'Full Pace Elite'
+
+export type FeedbackCategoryRatings = {
+  storytelling: number
+  screenplay: number
+  direction: number
+  performances: number
+  cinematography: number
+  music: number
+  editing: number
+  visualEffects?: number
+  pacing: number
+}
+
+export type DirectorFeedbackReply = {
+  id: string
+  user: string
+  text: string
+  time: string
+}
+
+export type DirectorFeedbackEntry = {
+  id: string
+  mediaId: string
+  mediaKind: MediaKind
+  directorName: string
+  user: string
+  handle: string
+  avatar: string
+  reviewerRole: string
+  badges: FeedbackBadge[]
+  verified: boolean
+  pinned: boolean
+  overallRating: number
+  categories: FeedbackCategoryRatings
+  text: string
+  helpfulCount: number
+  replies: DirectorFeedbackReply[]
+  timestamp: string
+  impressedScene?: string
+  improvedScene?: string
+  futureSuggestions?: string
+}
+
+export type CurrentViewer = {
+  id: string
+  name: string
+  handle: string
+  avatar: string
+  role: string
+  badges: FeedbackBadge[]
+  canSubmitDirectorFeedback: boolean
+  verifiedDirector: boolean
+}
+
+export type DirectorDashboardMetrics = {
+  averageCommunityRating: number
+  averageStoryRating: number
+  averageScreenplayRating: number
+  averageDirectionRating: number
+  averageMusicRating: number
+  averageEditingRating: number
+  mostAppreciatedAspect: string
+  mostRequestedImprovement: string
+  topCommunitySuggestions: string[]
+  positiveFeedbackPercent: number
+  constructiveFeedbackPercent: number
+}
+
+export type DirectorDashboard = {
+  directorSlug: string
+  directorName: string
+  verifiedDirector: boolean
+  metrics: DirectorDashboardMetrics
+}
+
 export type PersonCredit = {
   id: string
   title: string

@@ -3,14 +3,17 @@ import { BookmarkPlus, Heart, Languages, PenSquare, Play, Share2, Star, Users2 }
 import { Link, useParams } from 'react-router-dom'
 import { useMemo, useState, type ReactNode } from 'react'
 
+import { DirectorFeedbackSection } from '@/components/shared/DirectorFeedbackSection'
 import { MediaRail } from '@/components/shared/MediaRail'
 import { MediaReviewsSection } from '@/components/shared/MediaReviewsSection'
 import { useLogActionSheet } from '@/components/layout/LogActionSheet'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   aiRecommendations,
+  activities,
   communities,
   directors,
   getActor,
@@ -93,6 +96,73 @@ export function MovieDetailsPage() {
           </div>
         </div>
       </motion.section>
+
+      <Tabs defaultValue='reviews' className='space-y-4'>
+        <TabsList className='w-full max-w-full overflow-x-auto'>
+          <TabsTrigger value='reviews'>Reviews</TabsTrigger>
+          <TabsTrigger value='lists'>Lists</TabsTrigger>
+          <TabsTrigger value='activity'>Activity</TabsTrigger>
+          <TabsTrigger value='community'>Community</TabsTrigger>
+          <TabsTrigger value='director-feedback'>Director Feedback</TabsTrigger>
+          <TabsTrigger value='meetups'>Meetups</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value='reviews'>
+          <MediaReviewsSection mediaId={movie.id} mediaKind='movie' />
+        </TabsContent>
+
+        <TabsContent value='lists' className='grid gap-3 sm:grid-cols-3'>
+          {['Best space films', 'Most rewatchable endings', 'Director craft studies'].map((list) => (
+            <Link key={list} to='/watchlist' className='rounded-[1.25rem] border border-white/10 bg-[#162033] p-4 transition-colors duration-200 hover:border-[#7C3AED]/60'>
+              <p className='text-sm font-semibold text-white'>{list}</p>
+              <p className='mt-1 text-xs text-slate-400'>12 films</p>
+            </Link>
+          ))}
+        </TabsContent>
+
+        <TabsContent value='activity' className='space-y-2'>
+          {activities.filter((item) => item.mediaId === movie.id).map((activity) => (
+            <article key={activity.id} className='grid grid-cols-[64px_1fr] gap-3 rounded-2xl border border-white/10 bg-white/[0.055] p-3 backdrop-blur'>
+              <div className='grid h-16 w-12 place-items-center rounded-xl border border-white/10 bg-white/6 text-sm font-semibold text-white'>
+                {activity.avatar}
+              </div>
+              <div className='min-w-0'>
+                <p className='truncate text-sm font-semibold text-white'>{activity.user}</p>
+                <p className='text-xs text-slate-400'>{activity.action}</p>
+                <p className='mt-2 line-clamp-2 text-sm leading-6 text-slate-200'>{activity.snippet}</p>
+              </div>
+            </article>
+          ))}
+        </TabsContent>
+
+        <TabsContent value='community' className='space-y-3'>
+          {community ? (
+            <Link to={`/community/${community.slug}`} className='block rounded-[1.25rem] border border-[#7C3AED]/25 bg-[#7C3AED]/[0.08] p-4 transition-colors hover:bg-[#7C3AED]/[0.12]'>
+              <p className='font-semibold text-white'>{community.name}</p>
+              <p className='mt-1 text-xs text-slate-400'>{community.pinned}</p>
+            </Link>
+          ) : null}
+          {communities.filter((item) => item.mediaId === movie.id || item.mediaKind === 'movie').slice(0, 2).map((item) => (
+            <Link key={item.id} to={`/community/${item.slug}`} className='block rounded-[1.25rem] border border-white/10 bg-[#162033] p-4 transition-colors hover:border-[#7C3AED]/60'>
+              <p className='font-semibold text-white'>{item.name}</p>
+              <p className='mt-1 text-xs text-slate-400'>{item.members.toLocaleString()} members</p>
+            </Link>
+          ))}
+        </TabsContent>
+
+        <TabsContent value='director-feedback'>
+          <DirectorFeedbackSection mediaId={movie.id} mediaKind='movie' directorName={movie.director} />
+        </TabsContent>
+
+        <TabsContent value='meetups' className='grid gap-3 sm:grid-cols-3'>
+          {meetups.map((meetup) => (
+            <Link key={meetup.id} to='/meetups' className='rounded-[1.25rem] border border-white/10 bg-[#162033] p-4 transition-colors duration-200 hover:border-[#7C3AED]/60'>
+              <p className='text-sm font-semibold text-white'>{meetup.title}</p>
+              <p className='mt-1 text-xs text-slate-400'>{meetup.mode} - {meetup.cadence}</p>
+            </Link>
+          ))}
+        </TabsContent>
+      </Tabs>
 
       <section className='grid gap-4 sm:grid-cols-2 xl:grid-cols-4'>
         {movie.cast.slice(0, 4).map((name) => {

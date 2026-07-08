@@ -3,7 +3,10 @@ import type {
   AiRecommendation,
   ActorProfile,
   Community,
+  CurrentViewer,
   DirectorProfile,
+  DirectorDashboard,
+  DirectorFeedbackEntry,
   Meetup,
   Message,
   Movie,
@@ -285,6 +288,189 @@ export const reviews: Review[] = [
   { id: 'r4', mediaId: 'severance', mediaKind: 'series', user: 'cine_lina', avatar: 'LI', rating: 4.6, text: 'The clean rooms make dread feel ergonomic. Perfectly odd, perfectly controlled.', spoiler: true, likes: 184, comments: 39, bookmarks: 27, kind: 'video', filter: 'newest' },
 ]
 
+export const currentViewer: CurrentViewer = {
+  id: 'viewer-1',
+  name: 'Aria Sen',
+  handle: 'cinema_ari',
+  avatar: 'AR',
+  role: 'Top Reviewer',
+  badges: ['Verified Critic', 'Top Reviewer', 'Community Curator'],
+  canSubmitDirectorFeedback: true,
+  verifiedDirector: false,
+}
+
+export const directorFeedbackEntries: DirectorFeedbackEntry[] = [
+  {
+    id: 'df-1',
+    mediaId: 'interstellar',
+    mediaKind: 'movie',
+    directorName: 'Christopher Nolan',
+    user: 'cinema_ari',
+    handle: '@cinema_ari',
+    avatar: 'AR',
+    reviewerRole: 'Verified Critic',
+    badges: ['Verified Critic', 'Top Reviewer'],
+    verified: true,
+    pinned: true,
+    overallRating: 4.9,
+    categories: {
+      storytelling: 5,
+      screenplay: 5,
+      direction: 5,
+      performances: 5,
+      cinematography: 5,
+      music: 5,
+      editing: 4,
+      visualEffects: 5,
+      pacing: 4,
+    },
+    text: 'The film achieves a rare balance of scale and intimacy. The emotional framing around the climax is especially strong, and the visual language keeps the science accessible without losing awe.',
+    helpfulCount: 248,
+    replies: [
+      { id: 'rep-1', user: 'Assistant Moderator', text: 'Thank you for keeping the note constructive and specific.', time: '2h ago' },
+    ],
+    timestamp: 'Pinned 3h ago',
+    impressedScene: 'Docking sequence and final communication sequence.',
+    improvedScene: 'A slightly shorter mid-film exposition stretch.',
+    futureSuggestions: 'Consider even more emotional breathing room before the final act in future projects.',
+  },
+  {
+    id: 'df-2',
+    mediaId: 'interstellar',
+    mediaKind: 'movie',
+    directorName: 'Christopher Nolan',
+    user: 'frame_dev',
+    handle: '@frame_dev',
+    avatar: 'FD',
+    reviewerRole: 'Filmmaker',
+    badges: ['Filmmaker', 'Community Curator'],
+    verified: true,
+    pinned: false,
+    overallRating: 4.6,
+    categories: {
+      storytelling: 5,
+      screenplay: 4,
+      direction: 5,
+      performances: 4,
+      cinematography: 5,
+      music: 5,
+      editing: 4,
+      visualEffects: 5,
+      pacing: 4,
+    },
+    text: 'A strong example of how to use spectacle to support character stakes. The film is most effective when the visual ambition is in direct conversation with the family story.',
+    helpfulCount: 142,
+    replies: [],
+    timestamp: '6h ago',
+    impressedScene: 'The tesseract sequence and the quiet final goodbye.',
+    improvedScene: 'A little more time for the secondary arc to breathe.',
+    futureSuggestions: 'The film could benefit from one or two more transitional beats between major set pieces.',
+  },
+  {
+    id: 'df-3',
+    mediaId: 'station-eleven',
+    mediaKind: 'series',
+    directorName: 'Patrick Somerville',
+    user: 'critic_jade',
+    handle: '@critic_jade',
+    avatar: 'CJ',
+    reviewerRole: 'Community Curator',
+    badges: ['Community Curator', 'Top Reviewer'],
+    verified: true,
+    pinned: true,
+    overallRating: 4.7,
+    categories: {
+      storytelling: 5,
+      screenplay: 4,
+      direction: 5,
+      performances: 5,
+      cinematography: 4,
+      music: 4,
+      editing: 4,
+      pacing: 5,
+    },
+    text: 'The series is at its best when it treats memory as a living structure. The feedback loop between art and survival is thoughtful and emotionally honest.',
+    helpfulCount: 91,
+    replies: [
+      { id: 'rep-2', user: 'Community Editor', text: 'Pinned for the clarity of the constructive notes.', time: '1d ago' },
+    ],
+    timestamp: 'Pinned 1d ago',
+    impressedScene: 'The traveling symphony sequences.',
+    improvedScene: 'A few character transitions could land with more visual contrast.',
+    futureSuggestions: 'Future projects could keep the same sensitivity while widening the tonal range even more.',
+  },
+  {
+    id: 'df-4',
+    mediaId: 'severance',
+    mediaKind: 'series',
+    directorName: 'Dan Erickson',
+    user: 'film_mira',
+    handle: '@film_mira',
+    avatar: 'MI',
+    reviewerRole: 'Top Reviewer',
+    badges: ['Top Reviewer', 'Verified Critic'],
+    verified: true,
+    pinned: false,
+    overallRating: 4.8,
+    categories: {
+      storytelling: 5,
+      screenplay: 5,
+      direction: 5,
+      performances: 5,
+      cinematography: 5,
+      music: 4,
+      editing: 5,
+      pacing: 5,
+    },
+    text: 'An exceptionally controlled series. The best notes are about maintaining tension without sacrificing character warmth.',
+    helpfulCount: 121,
+    replies: [],
+    timestamp: '2d ago',
+    impressedScene: 'The final hallway sequence.',
+    improvedScene: 'An occasional quieter visual beat before major reveals.',
+    futureSuggestions: 'Continue balancing formal precision with character-specific emotional release.',
+  },
+]
+
+export const directorDashboards: Record<string, DirectorDashboard> = {
+  'christopher-nolan': {
+    directorSlug: 'christopher-nolan',
+    directorName: 'Christopher Nolan',
+    verifiedDirector: true,
+    metrics: {
+      averageCommunityRating: 4.8,
+      averageStoryRating: 4.9,
+      averageScreenplayRating: 4.8,
+      averageDirectionRating: 4.9,
+      averageMusicRating: 4.7,
+      averageEditingRating: 4.6,
+      mostAppreciatedAspect: 'Scale with emotional clarity',
+      mostRequestedImprovement: 'Slightly tighter middle-act pacing',
+      topCommunitySuggestions: ['More breathing room after major reveals', 'Continue balancing spectacle with intimacy', 'Preserve practical visual effects language'],
+      positiveFeedbackPercent: 86,
+      constructiveFeedbackPercent: 14,
+    },
+  },
+  'wong-kar-wai': {
+    directorSlug: 'wong-kar-wai',
+    directorName: 'Wong Kar-wai',
+    verifiedDirector: true,
+    metrics: {
+      averageCommunityRating: 4.9,
+      averageStoryRating: 4.8,
+      averageScreenplayRating: 4.7,
+      averageDirectionRating: 5,
+      averageMusicRating: 4.9,
+      averageEditingRating: 4.6,
+      mostAppreciatedAspect: 'Mood and visual poetry',
+      mostRequestedImprovement: 'More deliberate narrative anchoring',
+      topCommunitySuggestions: ['Keep the emotional color language', 'Lean further into city-as-character staging', 'Maintain musical rhythm in transitions'],
+      positiveFeedbackPercent: 91,
+      constructiveFeedbackPercent: 9,
+    },
+  },
+}
+
 export const actors: ActorProfile[] = [
   {
     slug: 'matthew-mcconaughey',
@@ -468,6 +654,16 @@ export function getActor(slug: string) {
 
 export function getDirector(slug: string) {
   return directors.find((item) => item.slug === slug)
+}
+
+export function getDirectorFeedback(mediaId: string, mediaKind: 'movie' | 'series') {
+  return directorFeedbackEntries
+    .filter((entry) => entry.mediaId === mediaId && entry.mediaKind === mediaKind)
+    .sort((left, right) => Number(right.pinned) - Number(left.pinned) || right.helpfulCount - left.helpfulCount)
+}
+
+export function getDirectorDashboard(directorSlug: string) {
+  return directorDashboards[directorSlug]
 }
 
 export function getSimilarMovies(id: string) {
