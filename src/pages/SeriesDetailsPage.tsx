@@ -37,6 +37,7 @@ export function SeriesDetailsPage() {
   const [seriesSaved, setSeriesSaved] = useState(false)
   const [savedSeasonIds, setSavedSeasonIds] = useState<string[]>([])
   const [savedEpisodeIds, setSavedEpisodeIds] = useState<string[]>([])
+  const [activeTab, setActiveTab] = useState('reviews')
 
   return (
     <div className='space-y-6'>
@@ -63,6 +64,7 @@ export function SeriesDetailsPage() {
               <ActionButton onClick={openLogSheet}><Tv className='h-4 w-4' /> Log Episode</ActionButton>
               <ActionButton onClick={openLogSheet}><Play className='h-4 w-4' /> Video Review</ActionButton>
               <ActionButton onClick={openLogSheet}><PenSquare className='h-4 w-4' /> Write Review</ActionButton>
+              <ActionButton onClick={() => setActiveTab('creator-feedback')}><MessageSquareText className='h-4 w-4' /> Creator Feedback</ActionButton>
               <ActionButton active={seriesSaved} onClick={() => setSeriesSaved((value) => !value)}><BookmarkPlus className='h-4 w-4' /> {seriesSaved ? 'Saved' : '+ Watchlist'}</ActionButton>
               <ActionButton><Heart className='h-4 w-4' /> Favorite</ActionButton>
             </div>
@@ -70,7 +72,7 @@ export function SeriesDetailsPage() {
         </div>
       </motion.section>
 
-      <Tabs defaultValue='reviews' className='space-y-4'>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className='space-y-4'>
         <TabsList className='w-full max-w-full overflow-x-auto'>
           <TabsTrigger value='reviews'>Reviews</TabsTrigger>
           <TabsTrigger value='lists'>Lists</TabsTrigger>

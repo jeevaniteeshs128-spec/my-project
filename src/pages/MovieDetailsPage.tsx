@@ -1,5 +1,15 @@
 import { motion } from 'framer-motion'
-import { BookmarkPlus, Heart, Languages, PenSquare, Play, Share2, Star, Users2 } from 'lucide-react'
+import {
+  BookmarkPlus,
+  Heart,
+  Languages,
+  MessageSquareText,
+  PenSquare,
+  Play,
+  Share2,
+  Star,
+  Users2,
+} from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { useMemo, useState, type ReactNode } from 'react'
 
@@ -55,6 +65,7 @@ export function MovieDetailsPage() {
   const { open: openLogSheet } = useLogActionSheet()
   const [watchlisted, setWatchlisted] = useState(false)
   const [favorited, setFavorited] = useState(false)
+  const [activeTab, setActiveTab] = useState('reviews')
 
   return (
     <div className='space-y-6'>
@@ -88,6 +99,7 @@ export function MovieDetailsPage() {
               <ActionButton onClick={openLogSheet}><PenSquare className='h-4 w-4' /> Log Movie</ActionButton>
               <ActionButton onClick={openLogSheet}><Play className='h-4 w-4' /> Video Review</ActionButton>
               <ActionButton onClick={openLogSheet}><PenSquare className='h-4 w-4' /> Write Review</ActionButton>
+              <ActionButton onClick={() => setActiveTab('creator-feedback')}><MessageSquareText className='h-4 w-4' /> Creator Feedback</ActionButton>
               <ActionButton active={watchlisted} onClick={() => setWatchlisted((value) => !value)}><BookmarkPlus className='h-4 w-4' /> {watchlisted ? 'Saved' : 'Add to Watchlist'}</ActionButton>
               <ActionButton active={favorited} onClick={() => setFavorited((value) => !value)}><Heart className='h-4 w-4' /> {favorited ? 'Favorited' : 'Favorite'}</ActionButton>
               <ActionButton><Share2 className='h-4 w-4' /> Share</ActionButton>
@@ -115,7 +127,7 @@ export function MovieDetailsPage() {
         </div>
       </div>
 
-      <Tabs defaultValue='reviews' className='space-y-4 pb-6'>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className='space-y-4 pb-6'>
         <TabsList className='w-full max-w-full overflow-x-auto'>
           <TabsTrigger value='reviews'>Reviews</TabsTrigger>
           <TabsTrigger value='lists'>Lists</TabsTrigger>
